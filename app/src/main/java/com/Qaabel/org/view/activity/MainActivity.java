@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
     private void initSocketActions()
     {
         socketListener=new OnSocketListener()
-        {
+        {    
             @Override
             public void doAfterReceiveSocketData(MSocket.SocketMassageType socketMassageType, JSONObject jsonObject)
             {
