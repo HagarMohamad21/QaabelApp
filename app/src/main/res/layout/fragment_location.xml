@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/locataionoff"
+    tools:context="com.Qaabel.org.view.fragment.MainActivity.home.MapFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/locationTxtView"
+                android:layout_width="match_parent"
+                android:layout_height="79dp"
+                android:background="@drawable/ic_location_must_on"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_marginBottom="50dp"
+                android:text="Please turn on your location in order to see and meet people around you."
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/warningTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="17sp"
+            android:layout_marginStart="39dp"
+            android:layout_marginEnd="39dp"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:text="@string/location_warning_txt"
+            android:textColor="@color/black"
+            android:background="@drawable/location_warning_back"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/available_num"
+            />
+        <ImageView
+            android:id="@+id/warningImg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_farlocation"
+            android:visibility="gone"
+            android:layout_marginStart="15dp"
+            app:layout_constraintBottom_toBottomOf="@id/warningTxt"
+            app:layout_constraintTop_toTopOf="@id/warningTxt"
+           app:layout_constraintStart_toStartOf="@id/warningTxt"/>
+        <ImageButton
+            android:id="@+id/go_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/circle"
+            android:padding="10dp"
+            android:src="@drawable/ic_choose"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout4" />
+        <ImageButton
+            android:id="@+id/currentLocationBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/circle"
+            android:padding="10dp"
+            android:src="@drawable/ic_vector"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout4" />
+
+        <TextView
+            android:id="@+id/city_name"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_map_num"
+            android:gravity="center"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/available_num"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            android:background="@drawable/ic_map_num"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:visibility="gone"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:text=""
+            android:paddingBottom="5dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/city_name"
+            app:layout_constraintStart_toStartOf="@+id/city_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/messagesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chat_map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/dis_active_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.65"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/available_num"
+            app:layout_constraintVertical_bias="0.19999999">
+
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:id="@+id/onlineView"
+            android:layout_width="8dp"
+            android:visibility="gone"
+            android:layout_height="8dp"
+            android:src="@drawable/ic_small_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/available_num"
+            app:layout_constraintEnd_toEndOf="@+id/available_num"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="@+id/available_num"
+            app:layout_constraintTop_toTopOf="@+id/available_num" />
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/popupRootView"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <ImageButton
+                android:id="@+id/flashBtn"
+                android:layout_width="@dimen/MapButtonsDim"
+                android:layout_height="@dimen/MapButtonsDim"
+                android:background="@drawable/circle"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_flash_icon"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@+id/markerPopup"
+                app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/messageBtn"
+                android:layout_width="@dimen/MapButtonsDim"
+                android:layout_height="@dimen/MapButtonsDim"
+                android:background="@drawable/circle"
+                android:padding="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_message"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@+id/markerPopup"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/flashSentTxt"
+                android:layout_width="@dimen/MapButtonsDim"
+                android:layout_height="@dimen/MapButtonsDim"
+                android:background="@drawable/ic_ellipse_17"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="Flash   Sent"
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/markerPopup"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <ImageButton
+                android:id="@+id/flashBackBtn"
+                android:layout_width="@dimen/MapButtonsDim"
+                android:layout_height="@dimen/MapButtonsDim"
+                android:background="@drawable/circle"
+                android:padding="12dp"
+                android:layout_marginStart="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_flash_icon"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/markerPopup"
+                app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/ignoreBtn"
+                android:layout_width="@dimen/MapButtonsDim"
+                android:layout_height="@dimen/MapButtonsDim"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle"
+                android:scaleType="center"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_ignoreflash"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/markerPopup"
+                app:layout_constraintTop_toBottomOf="@+id/flashBackBtn" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/markerPopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/flash_map_rectangle"
+                android:paddingEnd="10dp"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_img"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/friendName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Maria reza"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_img"
+                    app:layout_constraintStart_toEndOf="@+id/profile_img"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/flashedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flashed you!"
+                    android:visibility="gone"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                   android:layout_marginTop="2dp"
+                    app:layout_constraintStart_toStartOf="@+id/friendName"
+                    app:layout_constraintTop_toBottomOf="@id/friendName" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

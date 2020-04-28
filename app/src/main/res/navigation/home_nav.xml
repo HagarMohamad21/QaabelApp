@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_nav"
+    app:startDestination="@id/navigation_freindMap"
+    android:background="@color/white"
+    tools:context=".view.activity.MainActivity">
+    <fragment
+        android:id="@+id/navigation_Friend_profile"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.FriendProfileFragment"
+        android:label="Map Fragment"
+        tools:layout="@layout/fragment_friend_profile">
+
+        <action
+            android:id="@+id/action_navigation_Friend_profile_to_navigation_Friend"
+            app:destination="@id/navigation_Friend" />
+        <action
+            android:id="@+id/action_navigation_Friend_profile_to_navigation_freindMap"
+            app:destination="@id/navigation_freindMap" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_Friend"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.home.NearUsersListFragment"
+        android:label="Freind"
+        tools:layout="@layout/fragment_recycler_friend" >
+        <action
+            android:id="@+id/action_navigation_Friend_to_navigation_Friend_profile"
+            app:destination="@+id/navigation_Friend_profile" />
+        <action
+            android:id="@+id/action_navigation_Friend_to_navigation_home"
+            app:destination="@id/navigation_freindMap" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_freindMap"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.home.MapFragment"
+        android:label="Map Fragment"
+        tools:layout="@layout/fragment_location">
+        <action
+            android:id="@+id/action_navigation_freindMap_to_navigation_Friend"
+            app:destination="@id/navigation_Friend" />
+        <action
+            android:id="@+id/action_navigation_freindMap_to_navigation_Friend_profile"
+            app:destination="@id/navigation_Friend_profile" />
+    </fragment>
+</navigation>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.MainActivity.profile.ChangePhoneFragment">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/phoneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profileMarginStart"
+        android:layout_marginEnd="@dimen/profileMarginStart"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTxt">
+
+        <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/phone_txt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/phone_txt"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/viewsHeight"
+            android:background="@drawable/ic_text_background"
+            android:digits="0123456789"
+            android:ems="10"
+            android:hint="@string/phone"
+            android:inputType="number|phone"
+            android:maxLength="11"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ccp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/wrong_phone_img"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_wrong"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_txt"
+            app:layout_constraintEnd_toEndOf="@+id/phone_txt"
+            app:layout_constraintTop_toTopOf="@+id/phone_txt" />
+
+        <TextView
+            android:id="@+id/unavailablePhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ViewsSpacing"
+            android:text="@string/unavailable_phone"
+            android:textColor="@color/red"
+            android:textSize="@dimen/errorTextSize"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/phone_txt"
+            app:layout_constraintTop_toBottomOf="@id/phone_txt" />
+    </android.support.constraint.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/done_btn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/viewsHeight"
+            android:background="@drawable/activate_btn"
+            android:text="@string/done"
+            android:layout_marginStart="@dimen/profileMarginStart"
+            android:layout_marginEnd="@dimen/profileMarginStart"
+            android:layout_marginTop="@dimen/ViewsSpacing"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneLayout" />
+
+
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/titleTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:text="Phone Number"
+        android:textColor="@color/black"
+        android:textSize="@dimen/largeText"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/backButton"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="40dp"
+        android:paddingStart="10dp"
+        android:drawableTop="@drawable/ic_back_arrow"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/error_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text=""
+        android:textColor="@color/red"
+        android:textSize="@dimen/errorTextSize"
+        app:layout_constraintBottom_toTopOf="@+id/phoneLayout"
+        app:layout_constraintStart_toStartOf="@+id/phoneLayout" />
+
+</android.support.constraint.ConstraintLayout>
+

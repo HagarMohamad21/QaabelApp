@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/profileEdit"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.profile.ProfileEditFragment"
+        android:label=""
+        tools:layout="@layout/fragment_profile_edit" >
+        <action
+            android:id="@+id/action_profileEdit_to_navigation_chat"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_profileEdit_to_changePassword"
+            app:destination="@id/changePassword" />
+        <action
+            android:id="@+id/action_profileEdit_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_profileEdit_to_resetPassFragment"
+            app:destination="@id/resetPassFragment" />
+        <action
+            android:id="@+id/action_profileEdit_to_changeJobFragment"
+            app:destination="@id/changeJobFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changePassword"
+        android:name="com.Qaabel.org.view.fragment.Account.ForgetPassFragment"
+        android:label=""
+        tools:layout="@layout/fragment_forget_pass">
+
+        <action
+            android:id="@+id/action_changePassword_to_profileEdit"
+            app:destination="@id/profileEdit" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.home.MapFragment"
+        android:label=""
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_navigation_chat_to_profileEdit"
+            app:destination="@id/profileEdit" />
+        <action
+            android:id="@+id/action_navigation_Friend_to_navigation_home"
+            app:destination="@id/navigation_Friend" />
+        <action
+            android:id="@+id/action_navigation_home_to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_chat2"
+            app:destination="@id/navigation_chat" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_user_profile"
+            app:destination="@id/navigation_user_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_flash"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.flash.FlashesFragment"
+        android:label=""
+        tools:layout="@layout/fragment_flashes" >
+        <action
+            android:id="@+id/action_navigation_flash_to_navigation_user_profile"
+            app:destination="@id/navigation_user_profile" />
+        <action
+            android:id="@+id/action_navigation_flash_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.search.SearchFragment"
+        android:label=""
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.chat.ChatFragment"
+        android:label=""
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_navigation_chat_to_navigation_user_profile"
+            app:destination="@id/navigation_user_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.notifications.NotificationsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_notifications" />
+
+
+
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.profile.ProfileFragment"
+        android:label=""
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_profileEdit"
+            app:destination="@id/profileEdit" />
+        <action
+            android:id="@+id/action_navigation_profile_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_blocks"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.profile.BlockListFragment"
+        android:label=""
+        tools:layout="@layout/fragment_blocks" >
+
+        <action
+            android:id="@+id/action_navigation_blocks_to_navigation_user_profile"
+            app:destination="@id/navigation_user_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_user_profile"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.FriendProfileFragment"
+        android:label=""
+        tools:layout="@layout/fragment_friend_profile" >
+
+        <action
+            android:id="@+id/action_navigation_user_profile_to_navigation_blocks"
+            app:destination="@id/navigation_blocks" />
+        <action
+            android:id="@+id/action_navigation_user_profile_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_Friend"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.home.NearUsersListFragment"
+        android:label="Freind"
+        tools:layout="@layout/fragment_recycler_friend">
+
+        <action
+            android:id="@+id/action_navigation_Friend_to_navigation_user_profile"
+            app:destination="@id/navigation_user_profile" />
+        <action
+            android:id="@+id/action_navigation_Friend_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_Friend_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_reset_password"
+        android:name="com.Qaabel.org.view.fragment.Account.ForgetPassFragment"
+        android:label="Freind"
+        tools:layout="@layout/fragment_forget_pass"/>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.profile.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_navigation_blocks"
+            app:destination="@id/navigation_blocks" />
+        <action
+            android:id="@+id/action_settingsFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_changePhoneFragment"
+            app:destination="@id/changePhoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.profile.EmailFragment"
+        android:label="fragment_email"
+        tools:layout="@layout/fragment_email" />
+    <fragment
+        android:id="@+id/changePhoneFragment"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.profile.ChangePhoneFragment"
+        android:label="fragment_change_phone"
+        tools:layout="@layout/fragment_change_phone" >
+        <action
+            android:id="@+id/action_changePhoneFragment_to_verficationFragment"
+            app:destination="@id/verficationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verficationFragment"
+        android:name="com.Qaabel.org.view.fragment.Account.VerficationFragment"
+        android:label="fragment_verfication"
+        tools:layout="@layout/fragment_verfication" />
+    <fragment
+        android:id="@+id/resetPassFragment"
+        android:name="com.Qaabel.org.view.fragment.Account.ResetPassFragment"
+        android:label="fragment_reset_pass"
+        tools:layout="@layout/fragment_reset_pass" />
+    <fragment
+        android:id="@+id/changeJobFragment"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.profile.ChangeJobFragment"
+        android:label="ChangeJobFragment" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.chat.MessagesFragment"
+        android:label="MessagesFragment" >
+        <action
+            android:id="@+id/action_messagesFragment_to_navigation_chat"
+            app:destination="@id/navigation_chat" />
+    </fragment>
+</navigation>

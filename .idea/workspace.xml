@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config>
+        <device id="pixel_3" />
+        <device id="Nexus 7" />
+        <device id="pixel_2_xl" />
+        <device id="Nexus 5X" />
+        <device id="pixel_xl" />
+      </config>
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="onLocationResult" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7fa7c9f0-7d4a-4981-a971-7be0ac34ceba" name="Default Changelist" comment="added auto complete places fragment" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_27" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+        <option value="Class" />
+        <option value="Kotlin Interface" />
+        <option value="layoutResourceFile" />
+        <option value="resourceFile" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1Ysu1R1PZyHOh6phzq9EpMlwBki" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-18T16:31:06.548Z" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SelectDeploymentTargetsDialog.selectedDevices" value="197dce2e9804&#10;Pixel_2_API_27" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.Qaabel.org.view.fragment.MainActivity" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.Qaabel.org.viewModel.Repository.Account" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Android\Qaabel-fianl-master\app\src\main\res\mipmap-xxxhdpi" />
+      <recent name="D:\Qaabel-final\app\src\main\res\mipmap-xxxhdpi" />
+      <recent name="D:\Qaabel-final\app\src\main\res\drawable" />
+      <recent name="D:\Qaabel-app\app\src\main\res\mipmap-xxxhdpi" />
+      <recent name="C:\Users\Dell\Desktop\Qaabel-android-00e779579239\Qaabel-android-00e779579239\app\src\main\res\layout" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7fa7c9f0-7d4a-4981-a971-7be0ac34ceba" name="Default Changelist" comment="" />
+      <created>1582571449153</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582571449153</updated>
+    </task>
+    <task id="LOCAL-00001" summary="removed toasts messages from signup page">
+      <created>1582653488288</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582653488289</updated>
+    </task>
+    <task id="LOCAL-00002" summary="removed toasts messages from signup page">
+      <created>1582653626526</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1582653626526</updated>
+    </task>
+    <task id="LOCAL-00003" summary="removed toasts messages from signup page">
+      <created>1582706020529</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1582706020529</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fixed sign in and forgot password">
+      <created>1582721927243</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582721927243</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added change number design and fixed design related stuff on sign up and verification">
+      <created>1582886044243</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1582886044243</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Recreated complete data design and fixed some issues">
+      <created>1583048444174</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1583048444175</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixed some map design issues">
+      <created>1583086229370</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1583086229370</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed resend email and login issues">
+      <created>1583249852049</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1583249852049</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fixed resend email and login issues">
+      <created>1583250521695</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1583250521695</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added edit sign up API when user go back from verification">
+      <created>1583335074988</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1583335074988</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added the location off background">
+      <created>1583395317500</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1583395317500</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added the location off background (fixed a little issue)">
+      <created>1583399121928</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1583399121928</updated>
+    </task>
+    <task id="LOCAL-00013" summary="removed some colors in styles file">
+      <created>1583402514851</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1583402514851</updated>
+    </task>
+    <task id="LOCAL-00014" summary="removed marker when user zooms out the map">
+      <created>1583410507948</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1583410507948</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fixed some design issues in edit profile page">
+      <created>1583437022719</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1583437022719</updated>
+    </task>
+    <task id="LOCAL-00016" summary="added email screen and seperated settinfs from edit profile">
+      <created>1583606632821</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1583606632839</updated>
+    </task>
+    <task id="LOCAL-00017" summary="added email screen and seperated settinfs from edit profile">
+      <created>1583606723782</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1583606723782</updated>
+    </task>
+    <task id="LOCAL-00018" summary="user can now upload images and also finished up the email">
+      <created>1583692226127</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1583692226127</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Fixed country code and removed unused dependencies">
+      <created>1583792898915</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1583792898915</updated>
+    </task>
+    <task id="LOCAL-00020" summary="added reset password and birthdate dialog">
+      <created>1583962228525</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1583962228525</updated>
+    </task>
+    <task id="LOCAL-00021" summary="added reset password and birthdate dialog">
+      <created>1584001356483</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1584001356483</updated>
+    </task>
+    <task id="LOCAL-00022" summary="added reset password and birthdate dialog">
+      <created>1584004464581</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1584004464581</updated>
+    </task>
+    <task id="LOCAL-00023" summary="added reset password and birthdate dialog">
+      <created>1584005422728</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1584005422728</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fixed null pointer exception when receiving gps broadcast receiver">
+      <created>1585750478955</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1585750478955</updated>
+    </task>
+    <task id="LOCAL-00025" summary="added auto complete places fragment">
+      <created>1585751235081</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1585751235081</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="removed toasts messages from signup page" />
+    <MESSAGE value="fixed sign in and forgot password" />
+    <MESSAGE value="added change number design and fixed design related stuff on sign up and verification" />
+    <MESSAGE value="Recreated complete data design and fixed some issues" />
+    <MESSAGE value="Fixed some map design issues" />
+    <MESSAGE value="Fixed resend email and login issues" />
+    <MESSAGE value="Added edit sign up API when user go back from verification" />
+    <MESSAGE value="Added the location off background" />
+    <MESSAGE value="Added the location off background (fixed a little issue)" />
+    <MESSAGE value="removed some colors in styles file" />
+    <MESSAGE value="removed marker when user zooms out the map" />
+    <MESSAGE value="fixed some design issues in edit profile page" />
+    <MESSAGE value="added email screen and seperated settinfs from edit profile" />
+    <MESSAGE value="user can now upload images and also finished up the email" />
+    <MESSAGE value="Fixed country code" />
+    <MESSAGE value="Fixed country code and removed unused dependencies" />
+    <MESSAGE value="added reset password and birthdate dialog" />
+    <MESSAGE value="fixed null pointer exception when receiving gps broadcast receiver" />
+    <MESSAGE value="added auto complete places fragment" />
+    <option name="LAST_COMMIT_MESSAGE" value="added auto complete places fragment" />
+  </component>
+</project>

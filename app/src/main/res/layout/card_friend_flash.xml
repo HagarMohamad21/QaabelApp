@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout7"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:clickable="false"
+    android:clipChildren="true"
+    android:clipToPadding="true"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="false">
+
+    <android.support.constraint.ConstraintLayout
+        android:padding="10dp"
+        android:background="@drawable/date_backgraound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/friend_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/img"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/friendName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            app:layout_constraintStart_toEndOf="@+id/friend_img"
+            app:layout_constraintTop_toTopOf="@+id/friend_img" />
+
+        <TextView
+            android:id="@+id/friendAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@+id/friendName"
+            app:layout_constraintTop_toTopOf="@+id/friend_img" />
+
+        <TextView
+            android:id="@+id/friendDes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="I'm  an awesome guy and love cars and movies"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/friend_img"
+            app:layout_constraintTop_toBottomOf="@+id/friendAge" />
+
+        <TextView
+            android:id="@+id/flashBtn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_flash_btn"
+            android:gravity="center"
+            android:text="Flash"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/friend_img" />
+
+        <ImageView
+            android:id="@+id/friendIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="120dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/flashBtn"
+            app:layout_constraintEnd_toEndOf="@+id/flashBtn"
+            app:layout_constraintTop_toTopOf="@+id/flashBtn"
+            app:srcCompat="@drawable/ic_flash_white" />
+
+        <TextView
+            android:id="@+id/flashBackBtn"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/flash_sent"
+            android:gravity="center"
+            android:text="Flash Sent"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/friend_img" />
+
+        <ImageView
+            android:id="@+id/friendIcon2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="100dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/flashBackBtn"
+            app:layout_constraintEnd_toEndOf="@+id/flashBackBtn"
+            app:layout_constraintTop_toTopOf="@+id/flashBackBtn"
+            app:srcCompat="@drawable/ic_vector_104" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

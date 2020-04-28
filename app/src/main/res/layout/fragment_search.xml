@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.MainActivity.search.SearchFragment">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/search_list_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="10dp" />
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/viewsHeight"
+        android:background="@drawable/search_bg"
+        android:hint="Search a location"
+        android:paddingStart="35dp"
+        android:paddingEnd="35dp"
+        android:maxLines="1"
+        android:inputType="textAutoComplete"
+        android:imeOptions="actionSearch"
+        android:textCursorDrawable="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:src="@drawable/ic_search2"
+        app:layout_constraintBottom_toBottomOf="@+id/searchBar"
+        app:layout_constraintStart_toStartOf="@+id/searchBar"
+        app:layout_constraintTop_toTopOf="@+id/searchBar" />
+
+    <ImageView
+        android:id="@+id/closeBtn"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_group_380"
+        app:layout_constraintBottom_toBottomOf="@+id/searchBar"
+        app:layout_constraintEnd_toEndOf="@+id/searchBar"
+        app:layout_constraintTop_toTopOf="@+id/searchBar" />
+
+</android.support.constraint.ConstraintLayout>

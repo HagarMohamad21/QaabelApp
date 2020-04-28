@@ -1,0 +1,113 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion = 28
+//    buildToolsVersion=28.0.1
+
+    defaultConfig {
+        applicationId "com.Qaabel.org"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 15
+        versionName "1.5"
+        multiDexEnabled true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+
+        checkReleaseBuilds false
+
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-v4:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'android.arch.navigation:navigation-ui:1.0.0'
+    implementation 'com.alimuzaffar.lib:pinentryedittext:1.3.10'
+
+    //retrofit
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+
+    implementation 'com.github.joielechong:countrycodepicker:2.4.1'
+    implementation 'com.github.xingstarx:country-picker-android:1.1.8'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.10"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+
+
+    implementation 'com.github.santalu:mask-edittext:1.0.9'
+
+
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+//    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
+//    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+//    implementation 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
+//    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+//    implementation 'com.jakewharton.rxbinding2:rxbinding-leanback-v17:2.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.libraries.places:places:1.1.0'
+
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+// for swiping messages recyclerview right and left
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.2'
+//for custom info window
+    implementation 'com.appolica:interactive-info-window:v1.0.6'
+    //SOCKET IO LIBRARY FOR RUN TIME CHATTING AND RUNTIME FLASHING
+    compile('io.socket:socket.io-client:0.8.3') {
+        exclude group: 'org.json', module: 'json'
+    }
+
+
+}
+repositories {
+    mavenCentral()
+}

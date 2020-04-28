@@ -1,0 +1,16 @@
+<resources>
+    <dimen name="spacing">3dp</dimen>
+    <dimen name="ViewsSpacing">10dp</dimen>
+    <dimen name="viewsHeight">45dp</dimen>
+    <dimen name="viewsRadius">10dp</dimen>
+    <dimen name="ParentPadding">20dp</dimen>
+    <dimen name="largeText">20sp</dimen>
+    <dimen name="logoTopMargin">90dp</dimen>
+    <dimen name="errorTextSize">13sp</dimen>
+    <dimen name="noActionBarLogoTopMargin">50dp</dimen>
+    <dimen name="verificarionSpacing">20dp</dimen>
+    <dimen name="textSize">15sp</dimen>
+    <dimen name="actionIconsDim">20dp</dimen>
+    <dimen name="profileMarginStart">20dp</dimen>
+    <dimen name="MapButtonsDim">55dp</dimen>
+</resources>

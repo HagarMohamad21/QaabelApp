@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:background="@drawable/dialog_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/dayEditTxt"
+            android:layout_width="60dp"
+            android:paddingEnd="5dp"
+            android:layout_height="@dimen/viewsHeight"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/date_backgraound"
+            android:ems="10"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/monthEditTxt"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/monthEditTxt"
+            android:layout_width="60dp"
+            android:paddingEnd="5dp"
+            android:layout_height="@dimen/viewsHeight"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/date_backgraound"
+            android:ems="10"
+            android:hint="00"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/yearEditTxt"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/dayEditTxt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/yearEditTxt"
+            android:layout_width="100dp"
+            android:layout_height="@dimen/viewsHeight"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/date_backgraound"
+            android:ems="10"
+            android:hint="0000"
+            android:inputType="number"
+            android:maxLength="4"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/monthEditTxt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Day"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/dayEditTxt"
+            app:layout_constraintStart_toStartOf="@+id/dayEditTxt"
+            app:layout_constraintTop_toBottomOf="@+id/dayEditTxt" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Month"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/monthEditTxt"
+            app:layout_constraintStart_toStartOf="@+id/monthEditTxt"
+            app:layout_constraintTop_toBottomOf="@+id/monthEditTxt" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Year"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/yearEditTxt"
+            app:layout_constraintStart_toStartOf="@+id/yearEditTxt"
+            app:layout_constraintTop_toBottomOf="@+id/yearEditTxt" />
+
+        <TextView
+            android:id="@+id/openCalendarBtn"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/ViewsSpacing"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/date_backgraound"
+            android:text="Pick from calendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/datePrivacyBtn"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/ViewsSpacing"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/date_backgraound"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/openCalendarBtn" />
+
+        <TextView
+            android:id="@+id/saveBtn"
+            android:layout_width="0dp"
+            android:background="@drawable/blue_btn"
+            android:layout_height="40dp"
+            android:text="Save"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/ViewsSpacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePrivacyBtn" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</RelativeLayout>

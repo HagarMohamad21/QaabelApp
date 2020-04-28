@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_nav"
+    app:startDestination="@id/navigation_freindMap"
+    android:background="@color/white"
+    tools:context=".view.activity.MainActivity">
+    <fragment
+        android:id="@+id/navigation_signIn"
+        android:name="com.Qaabel.org.view.fragment.Account.SignInFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_navigation_signIn_to_navigation_forgetPassword"
+            app:destination="@id/navigation_forgetPassword" />
+        <action
+            android:id="@+id/action_navigation_signIn_to_navigation_signUp"
+            app:destination="@id/navigation_Friend" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_verfiy_phone"
+        android:name="com.Qaabel.org.view.fragment.Account.VerficationFragment"
+        android:label="Freind"
+        tools:layout="@layout/fragment_verfication" >
+        <action
+            android:id="@+id/action_navigation_verfiy_phone_to_compeleteFragment2"
+            app:destination="@id/compeleteFragment2"
+            app:popUpTo="@+id/navigation_signIn"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_Friend"
+        android:name="com.Qaabel.org.view.fragment.Account.SignUpFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_navigation_signUp_to_navigation_signIn"
+            app:destination="@id/navigation_signIn" />
+        <action
+            android:id="@+id/action_navigation_signUp_to_navigation_verfication"
+            app:destination="@id/navigation_verfication" />
+        <action
+            android:id="@+id/action_navigation_Friend_to_navigation_verfiy_phone"
+            app:destination="@id/navigation_verfiy_phone" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_forgetPassword"
+        android:name="com.Qaabel.org.view.fragment.Account.ForgetPassFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_forget_pass" >
+        <action
+            android:id="@+id/action_navigation_forgetPassword_to_navigation_signIn"
+            app:destination="@id/navigation_signIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_freindMap"
+        android:name="com.Qaabel.org.view.fragment.Account.AccountFragment"
+        android:label="Account Fragment"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_signIn"
+            app:destination="@id/navigation_signIn" />
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_signUp"
+            app:destination="@id/navigation_Friend" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_reset_password"
+        android:name="com.Qaabel.org.view.fragment.Account.ForgetPassFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_forget_pass" />
+
+    <fragment
+        android:id="@+id/navigation_verfication"
+        android:name="com.Qaabel.org.view.fragment.Account.ResetPassFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_verfication" >
+        <action
+            android:id="@+id/action_navigation_verfication_to_navigation_reset_password"
+            app:destination="@id/navigation_reset_password" />
+    </fragment>
+    <fragment
+        android:id="@+id/compeleteFragment2"
+        android:name="com.Qaabel.org.view.fragment.Account.CompeleteFragment"
+        android:label="fragment_compelete"
+        tools:layout="@layout/fragment_compelete" >
+        <action
+            android:id="@+id/action_compeleteFragment2_to_navigation_signIn"
+            app:destination="@id/navigation_signIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.Qaabel.org.view.fragment.MainActivity.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_navigation_signIn"
+            app:destination="@id/navigation_signIn" />
+    </fragment>
+</navigation>

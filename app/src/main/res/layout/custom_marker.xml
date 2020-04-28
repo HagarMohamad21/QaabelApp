@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_marker_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/markerImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_mine_map"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_uil_user"
+        app:layout_constraintEnd_toEndOf="@+id/markerImage"
+        app:layout_constraintStart_toStartOf="@+id/markerImage"
+        app:layout_constraintTop_toTopOf="@+id/markerImage" />
+
+    <TextView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:id="@+id/notificationDot"
+        android:visibility="gone"
+        android:background="@drawable/notification_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/profileImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+</android.support.constraint.ConstraintLayout>

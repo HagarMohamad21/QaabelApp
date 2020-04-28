@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.MainActivity.profile.SettingsFragment">
+
+    <ImageView
+        android:id="@+id/back_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/update_data_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="6dp"
+        android:src="@drawable/ic_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profileMarginStart"
+        android:layout_marginTop="@dimen/ViewsSpacing"
+        android:text="Phone"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/update_data_img" />
+
+    <TextView
+        android:id="@+id/phone_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profileMarginStart"
+        android:layout_marginTop="@dimen/ViewsSpacing"
+        android:layout_marginEnd="@dimen/profileMarginStart"
+        android:textColor="@color/black"
+        android:background="@drawable/ic_underline_text"
+        android:hint="@string/phone"
+        android:digits="0123456789"
+        android:inputType="number|phone"
+        android:maxLength="13"
+        android:singleLine="true"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/emailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/ViewsSpacing"
+        android:paddingBottom="@dimen/ViewsSpacing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_et">
+        <ImageView
+            android:id="@+id/verifiedImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/email_et"
+            app:layout_constraintEnd_toEndOf="@+id/email_et"
+            app:layout_constraintTop_toTopOf="@+id/email_et" />
+        <TextView
+            android:id="@+id/textView29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profileMarginStart"
+            android:text="Email"
+            android:textSize="@dimen/textSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/email_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profileMarginStart"
+            android:layout_marginEnd="@dimen/profileMarginStart"
+            android:background="@drawable/ic_underline_text"
+            android:maxLines="3"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profileMarginStart"
+        android:text="Language"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailLayout" />
+
+    <TextView
+        android:id="@+id/language_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profileMarginStart"
+        android:layout_marginTop="@dimen/ViewsSpacing"
+        android:layout_marginEnd="@dimen/profileMarginStart"
+        android:hint="English"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/language_et"
+        app:layout_constraintEnd_toEndOf="@+id/language_et"
+        app:layout_constraintTop_toTopOf="@+id/language_et" />
+
+    <TextView
+        android:id="@+id/blockListBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Block list"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/profileMarginStart"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/language_et" />
+
+
+
+    <TextView
+        android:id="@+id/errorTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="This phone is taken"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        android:textSize="@dimen/errorTextSize"
+        app:layout_constraintBottom_toBottomOf="@+id/textView26"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
+        app:layout_constraintTop_toTopOf="@+id/textView26" />
+</android.support.constraint.ConstraintLayout>

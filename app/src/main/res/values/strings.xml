@@ -1,0 +1,151 @@
+<resources>
+    <string name="app_name">Qaabel</string>
+    <string name="title_home">Home</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="placesApiKey">AIzaSyDM5aWecMttLAe9OaRlkGo1fHrRYLaufj4</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="sign_up">Sign Up</string>
+    <string name="Log_in"><u>Log In</u></string>
+    <string name="done">Done</string>
+    <string name="verify">Verify</string>
+    <string name="repeat_new_password">Repeat New Password</string>
+    <string name="new_password">New Password</string>
+    <string name="log_in">Log In</string>
+    <string name="field_require">This Field Is Required</string>
+    <string name="validate_email">Please Enter Valid E-mail</string>
+    <string name="search_places">Search for places you want to see</string>
+    <string name="male">Mail</string>
+    <string name="femail">Female</string>
+    <string name="view_profile">View Profile</string>
+    <string name="edit_profile"><u>Edit Profile</u></string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone number</string>
+    <string name="gender">Gender</string>
+    <string name="log_out">Log Out</string>
+    <string name="cancel">Cancel</string>
+    <string name="try_again">try again</string>
+    <string name="birth_day">BirthDay</string>
+    <string name="current_location">Current Location</string>
+    <string name="block_list">Block List</string>
+    <string name="sur_name">Surname</string>
+    <string name="open_email">Open Email</string>
+    <string name="username_length">User Name Should atleast three digits or charactrs</string>
+    <string name="canot_upload">cannot upload image please try again</string>
+    <string name="job">Job</string>
+    <string name="message">Message</string>
+    <string name="flash">Flash</string>
+    <string name="block">Block</string>
+    <string name="old_password">Old Password</string>
+    <string name="identical_pass">new password doesn\'t identical Confirm Password</string>
+    <string name="phone_code">Phone Code</string>
+
+
+    <string name="resend_code">Resend</string>
+    <string name="resend_email"><u>Resend</u></string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="notification_channel_id">21</string>
+    <string name="flas_back">Flash Back</string>
+    <string name="full_name">Full Name</string>
+    <string name="wrong_login">Log In failed. Please check your username and password</string>
+    <string name="not_active_email">Your account is not activated yet . Please try to register a new account.</string>
+    <string name="terms">
+        Welcome to Qaabel\'s Terms and Conditions of Use (these "Terms"). This is a contract between you and the Qaabel Company (as defined further below) and we want you to know yours and our rights before you use the Qaabel application ("App"). Please take a few moments to read these Terms before enjoying the App, because once you access, view or use the App, you are going to be legally bound by these Terms (so probably best to read them first!).
+
+ \n About our services \n
+
+\n Registration: \n
+
+You must register for our Services using accurate data, provide your current mobile phone number, and, if you change it, update this mobile phone number using our in-app change number feature. You agree to receive text messages and phone calls (from us or our third-party providers) with codes to register for our Services.
+
+\n \n Age: \n
+
+You must be at least 13 years old to use our Services. In addition to being of the minimum required age to use our Services under applicable law, if you are not old enough to have the authority to agree to our Terms in your country, your parent or guardian must agree to our Terms on your behalf.
+
+\n \n Devices and Software: \n
+
+You must provide certain devices, software, and data connections to use our Services, which we otherwise do not supply. For as long as you use our Services, you consent to download and install updates to our Services, including automatically.
+
+\n \n Privacy policy and user data \n
+
+Qaabel cares about your privacy. Qaabel’s Privacy Policy describes our information (including message) practices, including the types of information we receive and collect from you and how we use and share this information. You agree to our data practices, including the collection, use, processing, and sharing of your information as described in our Privacy Policy.
+
+\n \n Acceptable use of our services \n
+
+\n Our Terms and Policies: \n
+
+You must use our Services according to our Terms and posted policies. If we disable your account for a violation of our Terms, you will not create another account without our permission.
+
+\n \n Legal and Acceptable Use: \n
+
+You must access and use our Services only for legal, authorized, and acceptable purposes. You will not use (or assist others in using) our Services in ways that: (a) violate, misappropriate, or infringe the rights of Qaabel, our users, or others, including privacy, publicity, intellectual property, or other proprietary rights; (b) are illegal, obscene, defamatory, threatening, intimidating, harassing, hateful, racially, or ethnically offensive, or instigate or encourage conduct that would be illegal, or otherwise inappropriate, including promoting violent crimes; © involve publishing falsehoods, misrepresentations, or misleading statements; (d) impersonate someone; (e) involve sending illegal or impermissible communications or (f) involve any non-personal use of our Services unless otherwise authorized by us.
+
+\n \n Harm to Qaabel or Our Users: \n
+
+You must not (or assist others to) access, use, copy, adapt, modify, prepare derivative works based upon, distribute, license, sublicense, transfer, display, perform, or otherwise exploit our Services in impermissible or unauthorized manners, or in ways that burden, impair, or harm us, our Services, systems, our users, or others, including that you must not directly or through automated means: (a) reverse engineer, alter, modify, create derivative works from, decompile, or extract code from our Services; (b) send, store, or transmit viruses or other harmful computer code through or onto our Services; (c) gain or attempt to gain unauthorized access to our Services or systems; (d) interfere with or disrupt the integrity or performance of our Services; (e) create accounts for our Services through unauthorized or automated means; (f) collect the information of or about our users in any impermissible or unauthorized manner; (g) sell, resell, rent, or charge for our Services; or (h) distribute or make our Services available over a network where they could be used by multiple devices at the same time.
+
+\n \n Keeping Your Account Secure: \n
+
+You are responsible for keeping your device and your Qaabel account safe and secure, and you must notify us promptly of any unauthorized use or security breach of your account or our Services.
+
+\n \n Licenses \n
+
+\n Your Rights: \n
+
+Qaabel does not claim ownership of the information that you submit for your Qaabel account or through our Services. You must have the necessary rights to such information that you submit for your Qaabel account or through our Services and the right to grant the rights and licenses in our Terms.
+
+
+\n \n Qaabel’s Rights: \n
+
+We own all copyrights, trademarks, domains, logos, trade dress, trade secrets, patents, and other intellectual property rights associated with our Services. You may not use our copyrights, trademarks, domains, logos, trade dress, patents, and other intellectual property rights unless you have our express permission and except in accordance with our Brand Guidelines.
+
+\n \n Your License to Qaabel: \n
+
+In order to operate and provide our Services, you grant Qaabel a worldwide, non-exclusive, royalty-free, sublicensable, and transferable license to use, reproduce, distribute, create derivative works of, display, and perform the information (including the content) that you upload, submit, store, send, or receive on or through our Services. The rights you grant in this license are for the limited purpose of operating and providing our Services.
+
+\n \n Qaabel’s License to You: \n
+
+We grant you a limited, revocable, non-exclusive, non-sublicensable, and non-transferable license to use our Services, subject to and in accordance with our Terms. This license is for the sole purpose of enabling you to use our Services, in the manner permitted by our Terms. No licenses or rights are granted to you by implication or otherwise, except for the licenses and rights expressly granted to you.
+
+
+\n \n Your Account \n
+
+\n Deactivate your account:\n
+
+You have the right to deactivate your account anytime you want. Your account will be unavailable for anyone that has you as a friend or a chat with you. And, you have the right to activate it whenever you want just by sign in to your account with your existing username/email address and phone number.
+
+\n  \n Permanent delete: \n
+
+You can delete your account forever by choosing a permanent delete of your account. This action can’t be undo since it will delete all your data including, friends, pictures, media, chats, and any other data your account should have. So, be careful while taking action like that.
+
+We may edit and modify our terms and conditions without any prior notifications, so you need to read them from time to time since you will be agree to them as continuing using our application services.
+
+
+    </string>
+    <string name="unavailable_username">This username is taken</string>
+    <string name="unavailable_phone">This phone is taken</string>
+    <string name="passwordsMatch">Passwords should match</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="forgot_password_without_line">Forgot Password</string>
+    <string name="confirmEmail">
+        A verification link has been sent to your email account.Please confirm it to continue
+    </string>
+    <string name="upload_picture"><u>Upload Picture</u></string>
+    <string name="email"><u>Email</u></string>
+    <string name="edit_pic"><u>Edit picture</u></string>
+
+
+    <string name="location_warning_txt">You have to be on this \n location to see profiles</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="emailRegistered">Email Registered</string>
+    <string name="True">TRUE</string>
+
+</resources>
+

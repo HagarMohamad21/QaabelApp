@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chat_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginBottom="3dp">
+
+    <LinearLayout
+        android:id="@+id/user_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/sender_layout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/user_message_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|end"
+            android:layout_weight="1"
+            android:background="@drawable/ic_msg_final_start"
+            android:gravity="end"
+            android:padding="10dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/bottom" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sender_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="7dp" />
+
+        <TextView
+            android:id="@+id/sender_message_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|end"
+            android:background="@drawable/ic_user_msg"
+            android:gravity="end"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
