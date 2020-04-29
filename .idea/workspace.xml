@@ -17,7 +17,22 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fa7c9f0-7d4a-4981-a971-7be0ac34ceba" name="Default Changelist" comment="added auto complete places fragment" />
+    <list default="true" id="7fa7c9f0-7d4a-4981-a971-7be0ac34ceba" name="Default Changelist" comment="added auto complete places fragment">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/ServiceRestarter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/UtlisFuns.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/UtlisFuns.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/NotificationService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/NotificationService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/RxSearch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/activity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/MapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/MapFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,10 +81,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-18T16:31:06.548Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="197dce2e9804" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-29T14:29:12.445Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SelectDeploymentTargetsDialog.selectedDevices" value="197dce2e9804&#10;Pixel_2_API_27" />
+    <property name="ToolWindowGradle.ShowToolbar" value="false" />
     <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />

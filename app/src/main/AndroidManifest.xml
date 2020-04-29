@@ -19,6 +19,16 @@
 <service android:name=".model.Utilities.NotificationService"
     android:enabled="true"/>
 
+
+        <receiver
+            android:name=".model.Utilities.ServiceRestarter"
+            android:enabled="true"
+            android:exported="true"
+           >
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".view.activity.AccountActivity"
             android:theme="@style/AppTheme.NoActionBar">

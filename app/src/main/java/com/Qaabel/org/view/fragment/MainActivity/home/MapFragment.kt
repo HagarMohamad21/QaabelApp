@@ -114,9 +114,11 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     }
 
 
-
+    override fun onStart() {
+       // activity?.registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
+        super.onStart()
+    }
     override fun onResume() {
-        activity?.registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
         handler=Handler(Looper.getMainLooper())
         positionUpdaterRunnable=PositionUpdateRunnable()
         handler?.post(positionUpdaterRunnable)
@@ -125,7 +127,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
     override fun onDestroy() {
 
-        activity?.unregisterReceiver(mGpsSwitchStateReceiver)
+       // activity?.unregisterReceiver(mGpsSwitchStateReceiver)
         popupRootView?.viewTreeObserver?.removeOnGlobalLayoutListener(infoWindowListener!!)
         handler?.removeCallbacks(positionUpdaterRunnable)
         super.onDestroy()
