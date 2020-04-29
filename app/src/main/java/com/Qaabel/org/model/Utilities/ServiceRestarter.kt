@@ -15,12 +15,9 @@ class ServiceRestarter :BroadcastReceiver(){
               if(context!=null)
             if(!context.isMyServiceRunning(NotificationService::class.java))
                 if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-                   //Toast.makeText(context,"Start service on Orea",Toast.LENGTH_SHORT).show()
                     context.startForegroundService(Intent(context,NotificationService::class.java))
                 }
                 else {
-
-                    Toast.makeText(context,"Start service low than Orea",Toast.LENGTH_SHORT).show()
                     context.startService(Intent(context,NotificationService::class.java))
                 }
         }

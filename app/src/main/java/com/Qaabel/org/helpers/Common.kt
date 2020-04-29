@@ -18,5 +18,9 @@ class Common {
             val ageInt = age
             return ageInt.toString()
         }
+
+        val NotificationType_FLASH="FLASH"
+        val NotificationType_MESSAGE="MESSAGE"
+
     }
 }

@@ -57,7 +57,7 @@ class ChatFragment : Fragment() {
         friendProfileViewModel=ViewModelProviders.of(this).get(FriendProfileViewModel::class.java)
         token=SharedPref(context).getStrin(AppSharedPrefs.SHARED_PREF_TOKRN)
         currentUser=SharedPref(context).getUser(AppSharedPrefs.SHARED_PREF_lOGIN_USER)
-        initSocket()
+       // initSocket()
 
     }
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -96,7 +96,7 @@ class ChatFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 Log.d(TAG, "onTextChanged: ----------------------------------------------------"+s)
-                mSocket.emit("isTyping")
+               // mSocket.emit("isTyping")
              if(s.isNullOrEmpty()){
 
              }
@@ -229,20 +229,7 @@ class ChatFragment : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mSocket.emit("leaveChatRoom")
-        mSocket.disconnect()
-        mSocket.off("message")
-    }
 
-    override fun onStop() {
-        super.onStop()
-        mSocket.emit("leaveChatRoom")
-        mSocket.disconnect()
-        mSocket.off("message")
-
-    }
 
 
 }

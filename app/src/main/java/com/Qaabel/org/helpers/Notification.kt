@@ -4,19 +4,17 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.support.v4.app.NotificationCompat
-import android.support.v4.app.TaskStackBuilder
-import androidx.navigation.NavDeepLinkBuilder
 import com.Qaabel.org.R
+import com.Qaabel.org.model.entities.FriendModel
 import com.Qaabel.org.view.activity.MainActivity
 import kotlin.random.Random
 
-class Notification(var context: Context,var title:String,var message:String) {
+class Notification(var context: Context, var title: String, var message: String, var NotificationType: String, user: FriendModel?) {
 
     var notificationSound: Uri
     val notifyPendingIntent:PendingIntent
@@ -31,6 +29,8 @@ class Notification(var context: Context,var title:String,var message:String) {
 
         }
         intent.putExtra("Notification","TRUE")
+        intent.putExtra("FRIEND_USER",user)
+        intent.putExtra("NotificationType",NotificationType)
 
          notifyPendingIntent = PendingIntent.getActivity(
                 context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT

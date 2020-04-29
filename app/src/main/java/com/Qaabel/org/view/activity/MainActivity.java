@@ -2,32 +2,22 @@ package com.Qaabel.org.view.activity;
 
 import android.app.ActivityManager;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
-
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-
 import com.Qaabel.org.R;
-import com.Qaabel.org.model.Api.Response.SocketMessageModel;
 import com.Qaabel.org.model.Sevice.OnSocketListener;
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs;
 import com.Qaabel.org.model.SharedPref.SharedPref;
 import com.Qaabel.org.model.Utilities.NotificationService;
-import com.Qaabel.org.model.Utilities.ServiceRestarter;
+import com.Qaabel.org.model.entities.FriendModel;
 import com.Qaabel.org.viewModel.viewModel.friend.FriendProfileViewModel;
-
-import org.json.JSONObject;
-
+import com.Qaabel.org.helpers.Common;
 import io.socket.client.Socket;
 
 public class MainActivity extends AppCompatActivity
@@ -79,20 +69,19 @@ public class MainActivity extends AppCompatActivity
         profileViewModel = ViewModelProviders.of(this).get(FriendProfileViewModel.class);
 
         if(getIntent().getStringExtra("Notification")!=null&&getIntent().getStringExtra("Notification").equals("TRUE")){
+            if(getIntent().getStringExtra("NotificationType").equals(Common.Companion.getNotificationType_FLASH()))
          navHostFragment.getNavController().navigate(R.id.navigation_flash);
+            else if(getIntent().getStringExtra("NotificationType").equals(Common.Companion.getNotificationType_MESSAGE())){
+                FriendModel nearUser=getIntent().getParcelableExtra("FRIEND_USER");
+                Bundle bundle= new Bundle();
+                bundle.putParcelable("FRIEND_USER",nearUser);
+                navHostFragment.getNavController().navigate(R.id.navigation_chat,bundle);
+            }
         }
 
 
     }
 
-//    private void initializeSocket()
-//    {
-//
-//        IO.Options opts = new IO.Options();
-//        opts.timeout = 10000;
-//        opts.forceNew = true;
-
-//    }
 
 
 
@@ -100,15 +89,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
        stopService(serviceIntent);
-        Toast.makeText(this, "ON DESTROY", Toast.LENGTH_SHORT).show();
         super.onDestroy();
 
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        ServiceRestarter serviceRestarter=new ServiceRestarter();
-//        LocalBroadcastManager.getInstance(this).unregisterReceiver(serviceRestarter);
-//    }
 }

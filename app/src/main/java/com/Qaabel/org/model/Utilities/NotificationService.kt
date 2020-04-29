@@ -11,15 +11,17 @@ import android.os.IBinder
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 import android.util.Log
-import android.widget.Toast
+import com.Qaabel.org.helpers.Common
 import com.Qaabel.org.helpers.Notification
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs
 import com.Qaabel.org.model.SharedPref.SharedPref
+import com.Qaabel.org.model.entities.SocketModel
 import com.Qaabel.org.model.entities.UserModel
 import com.google.gson.Gson
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+
 
 
 public class NotificationService : Service() {
@@ -28,6 +30,7 @@ public class NotificationService : Service() {
     private var mtoken=""
     private val TAG = "NotificationService"
     var broadCastIntent:Intent = Intent()
+
 
     init {
         broadCastIntent.action = "restartservice"
@@ -80,11 +83,29 @@ public class NotificationService : Service() {
                 it.connect()
                 mSocket?.on(Socket.EVENT_CONNECT){
                     mSocket?.emit("register",mtoken)
+
                 }
             }
             mSocket?.on(Socket.EVENT_DISCONNECT){
             }
 
+
+            mSocket?.on("message",Emitter.Listener {
+                Log.d(TAG, "initSocket: ---------------------------------------------------------"+it[0].toString())
+                var  gson = Gson()
+                var socketModel=gson.fromJson(it[0].toString(), SocketModel::class.java)
+                var message=socketModel?.getMessage()
+                Log.d(TAG, "initSocket: ----------------------------------------"+message?.message)
+
+//                activity?.runOnUiThread {
+//                    adapter?.addNewMessage(message)
+//                    chatlist.scrollToPosition(adapter?.itemCount!!-1)
+//                }
+                var notification=Notification(applicationContext,"${socketModel.getUser()?.name}",message!!.message, Common.NotificationType_MESSAGE,socketModel?.getUser())
+                notification.sendNotification()
+
+
+            })
 
             mSocket?.on("flash", Emitter.Listener {
               //show notification
@@ -93,7 +114,7 @@ public class NotificationService : Service() {
 
                 var gson=Gson()
                 var flashUser:UserModel= gson.fromJson(it[0].toString(),UserModel::class.java)
-                var notification=Notification(applicationContext,"New Flash","${flashUser.name} just flashed you!")
+                var notification=Notification(applicationContext,"New Flash","${flashUser.name} just flashed you!",Common.NotificationType_FLASH,null)
                 notification.sendNotification()
             })
 
@@ -104,7 +125,7 @@ public class NotificationService : Service() {
 
                 var gson=Gson()
                 var flashUser:UserModel= gson.fromJson(it[0].toString(),UserModel::class.java)
-                var notification=Notification(applicationContext,"New Flash","${flashUser.name} just flashed you back!")
+                var notification=Notification(applicationContext,"New Flash","${flashUser.name} just flashed you back!",Common.NotificationType_FLASH,null)
                 notification.sendNotification()
             })
 
@@ -117,14 +138,11 @@ public class NotificationService : Service() {
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        Toast.makeText(this, "ON TASK REMOVED", Toast.LENGTH_SHORT).show()
-
         this.sendBroadcast(broadCastIntent)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Toast.makeText(this, "SERVICE ON DESTROY", Toast.LENGTH_SHORT).show()
        this.sendBroadcast(broadCastIntent)
 
     }
