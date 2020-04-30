@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation;
 
 import com.Qaabel.org.helpers.Common;
 import com.Qaabel.org.helpers.TimeUtils;
+import com.Qaabel.org.viewModel.viewModel.friend.FlashUserViewModel;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.Qaabel.org.R;
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs;
@@ -43,12 +45,13 @@ public class FlashsAdapter extends RecyclerView.Adapter<FlashsAdapter.ViewHolder
 
     List<FriendModel> users = new ArrayList<>();
     FlashesFragment mView;
-    FriendProfileViewModel profileViewModel;
+    FlashUserViewModel flashUserViewModel;
     String token;
     FlashesFragment fragment;
-
+    private static final String TAG = "FlashsAdapter";
     public class ViewHolder extends RecyclerView.ViewHolder
     {
+         LinearLayout dataLayout;
         CircleImageView profileImg;
         TextView name_et, age_et;
         Button flashBackBtn, declineBtn;
@@ -57,6 +60,7 @@ public class FlashsAdapter extends RecyclerView.Adapter<FlashsAdapter.ViewHolder
         public ViewHolder(View view)
         {
             super(view);
+            dataLayout=view.findViewById(R.id.data_layout);
             name_et = view.findViewById(R.id.freind_name);
             age_et = view.findViewById(R.id.friend_age);
             profileImg = view.findViewById(R.id.friend_img);
@@ -72,7 +76,7 @@ public class FlashsAdapter extends RecyclerView.Adapter<FlashsAdapter.ViewHolder
         this.mView = fragment;
         this.fragment = fragment;
         this.token = new SharedPref(mView.getContext()).getStrin(AppSharedPrefs.SHARED_PREF_TOKRN);
-        this.profileViewModel = ViewModelProviders.of(mView.getActivity()).get(FriendProfileViewModel.class);
+        this.flashUserViewModel = ViewModelProviders.of(mView.getActivity()).get(FlashUserViewModel.class);
 
     }
 
@@ -105,48 +109,41 @@ public class FlashsAdapter extends RecyclerView.Adapter<FlashsAdapter.ViewHolder
                 });
         RxView.clicks(holder.flashBackBtn).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(o -> {
-                    profileViewModel.flashBackUser(token, (users.get(position)).getId()).observe(fragment, apiLoginResponse -> {
-                        if (!apiLoginResponse.equals(null))
-                        {
-                            if (apiLoginResponse.getStatus().equals("200"))
-                            {
-                                Animation animation = AnimationUtils.loadAnimation(mView.getContext(), R.anim.item_animation_from_right);
-                                holder.doneLayout.startAnimation(animation);
-                                holder.doneLayout.setVisibility(View.VISIBLE);
+                    flashUserViewModel.flashUserBack(token,users.get(position).getId()).observe(fragment,activeResponse ->
+                    {
+                       if(activeResponse!=null){
+                           if(activeResponse.getStatus()==200){
+                               Animation animation = AnimationUtils.loadAnimation(mView.getContext(), R.anim.item_animation_from_right);
+                               holder.doneLayout.startAnimation(animation);
+                               holder.doneLayout.setVisibility(View.VISIBLE);
 
-                                new Handler().postDelayed(() -> {
-                                    users.remove(position);
-                                    notifyDataSetChanged();
-                                }, 3000);
-                                Toast.makeText(fragment.getContext(), apiLoginResponse.getMessage(), Toast.LENGTH_SHORT).show();
-
-                            } else
-                                Toast.makeText(fragment.getContext(), apiLoginResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                               new Handler().postDelayed(() -> {
+                                   users.remove(position);
+                                   notifyDataSetChanged();
+                               }, 3000);
+                           }
+                       }
                     });
                 });
         RxView.clicks(holder.declineBtn).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(o -> {
-                    profileViewModel.ignoreUser(token, (users.get(position)).getId()).observe(fragment, apiLoginResponse -> {
-                        if (!apiLoginResponse.equals(null))
-                        {
-                            if (apiLoginResponse.getStatus().equals("200"))
-                            {
-                                Animation animation = AnimationUtils.loadAnimation(mView.getContext(), R.anim.item_animation_from_right);
-                                holder.doneLayout.startAnimation(animation);
-                                holder.doneLayout.setVisibility(View.VISIBLE);
+                 flashUserViewModel.ignoreUser(token,users.get(position).getId()).observe(fragment,activeResponse ->
+                 { if(activeResponse!=null){
+                     if(activeResponse.getStatus()==200){
 
-                                new Handler().postDelayed(() -> {
-                                    users.remove(position);
-                                    notifyDataSetChanged();
-                                }, 3000);
-                                Toast.makeText(fragment.getContext(), apiLoginResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                            } else
-                                Toast.makeText(fragment.getContext(), apiLoginResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                         Animation animation = AnimationUtils.loadAnimation(mView.getContext(), R.anim.item_animation_from_right);
+                         holder.doneLayout.startAnimation(animation);
+                        holder.doneLayout.setVisibility(View.VISIBLE);
+
+                         new Handler().postDelayed(() -> {
+                             users.remove(position);
+                             notifyDataSetChanged();
+                         }, 3000);
+                 }}
+                 });
+                
                 });
-//
+
     }
 
 

@@ -12,7 +12,7 @@ import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 import android.util.Log
 import com.Qaabel.org.helpers.Common
-import com.Qaabel.org.helpers.Notification
+import com.Qaabel.org.helpers.NotificationCustom
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs
 import com.Qaabel.org.model.SharedPref.SharedPref
 import com.Qaabel.org.model.entities.SocketModel
@@ -101,7 +101,7 @@ public class NotificationService : Service() {
 //                    adapter?.addNewMessage(message)
 //                    chatlist.scrollToPosition(adapter?.itemCount!!-1)
 //                }
-                var notification=Notification(applicationContext,"${socketModel.getUser()?.name}",message!!.message, Common.NotificationType_MESSAGE,socketModel?.getUser())
+                var notification=NotificationCustom(applicationContext,"${socketModel.getUser()?.name}",message!!.message, Common.NotificationType_MESSAGE,socketModel?.getUser())
                 notification.sendNotification()
 
 
@@ -114,7 +114,7 @@ public class NotificationService : Service() {
 
                 var gson=Gson()
                 var flashUser:UserModel= gson.fromJson(it[0].toString(),UserModel::class.java)
-                var notification=Notification(applicationContext,"New Flash","${flashUser.name} just flashed you!",Common.NotificationType_FLASH,null)
+                var notification=NotificationCustom(applicationContext,"New Flash","${flashUser.name} just flashed you!",Common.NotificationType_FLASH,null)
                 notification.sendNotification()
             })
 
@@ -125,7 +125,7 @@ public class NotificationService : Service() {
 
                 var gson=Gson()
                 var flashUser:UserModel= gson.fromJson(it[0].toString(),UserModel::class.java)
-                var notification=Notification(applicationContext,"New Flash","${flashUser.name} just flashed you back!",Common.NotificationType_FLASH,null)
+                var notification=NotificationCustom(applicationContext,"New Flash","${flashUser.name} just flashed you back!",Common.NotificationType_FLASH,null)
                 notification.sendNotification()
             })
 

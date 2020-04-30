@@ -65,7 +65,7 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
     public boolean isInActionMode=false,isSelectAll=false;
     String token;
    public List<LastChatModel> deletedList=new ArrayList<>();
-
+    View view;
 
     private DialogInterface.OnDismissListener onDismissListener;
 
@@ -80,10 +80,12 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_messages, container, false);
+         if(view==null){
+             view = inflater.inflate(R.layout.fragment_messages, container, false);
 
-        init(view);
-        action();
+             init(view);
+             action();
+         }
         return view;
     }
 

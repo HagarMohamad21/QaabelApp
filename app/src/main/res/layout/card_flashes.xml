@@ -7,11 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:clickable="false"
-    android:clipChildren="true"
-    android:clipToPadding="true"
     android:orientation="vertical"
     app:cardCornerRadius="5dp"
-    app:cardPreventCornerOverlap="true"
     android:background="@color/white"
     app:cardUseCompatPadding="true">
 
@@ -26,6 +23,8 @@
             android:background="@drawable/ic_message_flash"
             android:orientation="vertical"
             android:padding="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,11 +128,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
+
                 android:accessibilityHeading="false"
                 android:background="@drawable/ignore_btn_bg"
                 android:clickable="true"
                 android:textAllCaps="false"
                 android:text="Decline"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/black" />
 
         </LinearLayout>

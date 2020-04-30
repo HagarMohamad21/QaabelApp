@@ -142,7 +142,7 @@ class ChatFragment : Fragment() {
         messageModel.sender=currentUser?._id
         messageModel.message=message
        adapter?.addNewMessage(messageModel)
-       chatlist.scrollToPosition(adapter?.itemCount!!-1)
+       chatlist?.scrollToPosition(adapter?.itemCount!!-1)
     }
 
     private fun init(){

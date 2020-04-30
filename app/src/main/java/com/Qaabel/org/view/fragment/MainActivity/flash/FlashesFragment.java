@@ -41,7 +41,7 @@ public class FlashesFragment extends Fragment
 {
     RecyclerView recyclerView;
     TextView freindsTextView, flashesTextView;
-
+    View view;
     MutableLiveData<ApiFreindsResponse> mfreinds, mflshes;
     private FriendProfileViewModel profileViewModel;
 
@@ -61,10 +61,12 @@ public class FlashesFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_flashes, container, false);
+       if(view==null){
+           view = inflater.inflate(R.layout.fragment_flashes, container, false);
 
-        init(view);
-        action();
+           init(view);
+           action();
+       }
         return view;
     }
 

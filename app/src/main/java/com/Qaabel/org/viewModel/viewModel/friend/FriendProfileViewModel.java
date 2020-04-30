@@ -69,15 +69,7 @@ public class FriendProfileViewModel extends AndroidViewModel
         return friendProfileRepository.FlashUser(token, id);
     }
 
-    public LiveData<ApiLoginResponse> flashBackUser(String token, String id)
-    {
-        return friendProfileRepository.FlashBackUser(token, id);
-    }
 
-    public LiveData<ApiLoginResponse> ignoreUser(String token, String id)
-    {
-        return friendProfileRepository.IgnoreUser(token, id);
-    }
 
 //    public LiveData<ApiLoginResponse> deletAccount(String token)
 //    {

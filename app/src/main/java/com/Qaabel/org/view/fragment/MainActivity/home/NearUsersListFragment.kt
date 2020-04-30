@@ -151,7 +151,7 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
 
     override fun sendFlash(userId: String,pos:Int) {
         Log.d(TAG, "sendFlash: -------------------")
-        flashUserViewModel!!.flashUser(mtoken,userId).observe(this, Observer {
+        flashUserViewModel?.flashUser(mtoken,userId)?.observe(this, Observer {
             if(it!=null){
                if(it.getMessage()=="user flashed"){
                   if(onFlashedSent!=null){
@@ -164,7 +164,7 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
     }
 
     override fun sendFlashBack(userId: String) {
-        flashUserViewModel!!.flashUserBack(mtoken,userId).observe(this, Observer {
+        flashUserViewModel?.flashUserBack(mtoken,userId)?.observe(this, Observer {
             if(it!=null){
                 if(it.getMessage()=="you are now friends "){
                     if(onFlashBack!=null){

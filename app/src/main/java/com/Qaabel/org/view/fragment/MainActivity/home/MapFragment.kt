@@ -114,10 +114,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     }
 
 
-    override fun onStart() {
-       // activity?.registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
-        super.onStart()
-    }
+
     override fun onResume() {
         handler=Handler(Looper.getMainLooper())
         positionUpdaterRunnable=PositionUpdateRunnable()
@@ -125,12 +122,21 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         super.onResume()
     }
 
-    override fun onDestroy() {
 
-       // activity?.unregisterReceiver(mGpsSwitchStateReceiver)
+    override fun onDestroy() {
         popupRootView?.viewTreeObserver?.removeOnGlobalLayoutListener(infoWindowListener!!)
         handler?.removeCallbacks(positionUpdaterRunnable)
         super.onDestroy()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activity?.registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.unregisterReceiver(mGpsSwitchStateReceiver)
     }
 
 
@@ -144,16 +150,12 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         currentUser = SharedPref(context).getUser(AppSharedPrefs.SHARED_PREF_lOGIN_USER)
         customMarker= CustomMarker(this)
         checkIfUserCompletedData()
-        initSocket()
         markerHeight=resources.getDrawable(R.drawable.ic_pinkmarker).intrinsicHeight
 
 
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
 
     }
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -265,7 +267,8 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         else {
             warningImg?.toggleVisiblity(false)
             warningTxt?.toggleVisiblity(false)
-            onlineView?.visibility = View.GONE
+            onlineView?.toggleVisiblity(false)
+            popupRootView?.toggleVisiblity(false)
             currentLocationBtn?.visibility = View.GONE
             locationTxtView?.visibility = View.VISIBLE
             available_num?.visibility = View.GONE

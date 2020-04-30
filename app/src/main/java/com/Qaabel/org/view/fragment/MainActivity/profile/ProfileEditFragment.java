@@ -109,6 +109,7 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
     CountryPicker countryCodePicker;
     SharedPref mSharedPref;
 
+
     public ProfileEditFragment()
     {
         // Required empty public constructor
@@ -135,16 +136,18 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
+       if(view==null){
+           view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
-        friendProfileViewModel = ViewModelProviders.of(this.getActivity()).get(FriendProfileViewModel.class);
+           friendProfileViewModel = ViewModelProviders.of(this.getActivity()).get(FriendProfileViewModel.class);
 
-        init(view);
-        (activity) = (MainActivity) getActivity();
-        actions();
+           init(view);
+           (activity) = (MainActivity) getActivity();
+           actions();
 
-        editTextActions();
-        completeDataViewModel = ViewModelProviders.of(this.getActivity()).get(CompleteDataViewModel.class);
+           editTextActions();
+           completeDataViewModel = ViewModelProviders.of(this.getActivity()).get(CompleteDataViewModel.class);
+       }
         return view;
     }
 

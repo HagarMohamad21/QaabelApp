@@ -14,7 +14,7 @@ import com.Qaabel.org.model.entities.FriendModel
 import com.Qaabel.org.view.activity.MainActivity
 import kotlin.random.Random
 
-class Notification(var context: Context, var title: String, var message: String, var NotificationType: String, user: FriendModel?) {
+class NotificationCustom(var context: Context, var title: String, var message: String, var NotificationType: String, user: FriendModel?) {
 
     var notificationSound: Uri
     val notifyPendingIntent:PendingIntent
