@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onCreate: ------------------------------------------------------");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        NotificationService notificationService=new NotificationService();
         serviceIntent = new Intent(getApplicationContext(), NotificationService.class);
        if(!isMyServiceRunning(NotificationService.class)){
            Log.d(TAG, "onCreate: ----------------SERVICE IS RUNNING------------------");

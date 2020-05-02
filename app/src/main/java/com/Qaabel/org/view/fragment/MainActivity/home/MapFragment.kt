@@ -17,6 +17,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -98,7 +99,11 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     var markers=HashMap<String,Marker?>()
     var nearUsersProfiles=HashMap<String,Bitmap?>()
     var customMarker:CustomMarker?=null
+    companion object{
+        var visible=false
+    }
 
+      lateinit var mMessageReceiver:BroadcastReceiver
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == REQUEST_LOCATION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -119,8 +124,12 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         handler=Handler(Looper.getMainLooper())
         positionUpdaterRunnable=PositionUpdateRunnable()
         handler?.post(positionUpdaterRunnable)
+        visible=true
+        Log.d(TAG, "onResume: ---------------------------------VISIBLE IS TRUE--------------------------$visible")
         super.onResume()
     }
+
+
 
 
     override fun onDestroy() {
@@ -132,11 +141,15 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     override fun onStart() {
         super.onStart()
         activity?.registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
+        LocalBroadcastManager.getInstance(context!!).registerReceiver(
+                mMessageReceiver,  IntentFilter(Common.NEW_FLASH_FILTER))
+
     }
 
     override fun onStop() {
         super.onStop()
         activity?.unregisterReceiver(mGpsSwitchStateReceiver)
+        LocalBroadcastManager.getInstance(context!!).unregisterReceiver(mMessageReceiver)
     }
 
 
@@ -144,6 +157,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        currentUser!!.image
+        visible=true
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity!!)
         nearUsersViewModel = ViewModelProviders.of(activity!!).get(NearUsersViewModel::class.java)
         mtoken = SharedPref(context).getStrin(AppSharedPrefs.SHARED_PREF_TOKRN)
@@ -151,11 +165,32 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         customMarker= CustomMarker(this)
         checkIfUserCompletedData()
         markerHeight=resources.getDrawable(R.drawable.ic_pinkmarker).intrinsicHeight
+        initBroadCast()
 
 
 
     }
 
+    private fun initBroadCast() {
+
+        mMessageReceiver=object:BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if(intent?.getStringExtra(Common.SERVICE_MESSAGE)==Common.NotificationType_FLASH){
+                   val flashUser:FriendModel= intent.getParcelableExtra(Common.SERVICE_USER) as FriendModel
+                    val marker:Marker?=markers[flashUser.username]
+                    val user=marker?.tag as FriendModel
+                    val gender=user.sex
+                    val resourse=if(gender==0) { R.drawable.ic_bluemarker }
+                    else{R.drawable.ic_pinkmarker}
+                    marker?.setIcon(customMarker?.createCustomMarker(nearUsersProfiles[user.username],resourse,true))
+                    user.isfriend=false
+                    user.isflashed=false
+                    user.isflashedyou=true
+                    marker?.tag=user
+                }
+            }
+        }
+    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -625,8 +660,14 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
     }
 
+
     override fun onPause() {
         super.onPause()
+
+        visible=false
+        Log.d(TAG, "onPause: -----------------------------------VISISBLE ---------------------------$visible")
+        //Log.d(TAG, "onPause: -----------------------------------HAS WINDOW FOCUS ---------------------------"+())
+
         popupRootView.viewTreeObserver.removeOnGlobalLayoutListener(infoWindowListener!!)
         handler?.removeCallbacks(positionUpdaterRunnable)
     }

@@ -21,6 +21,12 @@ class Common {
 
         val NotificationType_FLASH="FLASH"
         val NotificationType_MESSAGE="MESSAGE"
+        val SERVICE_MESSAGE="SERVICE_MESSAGE"
+        val SERVICE_USER="USER"
+        val NEW_FLASH_FILTER="NEW_FLASH"
+        val SERVICE_CHAT_MESSAGE="MESSAGE"
+        val NEW_MESSAGE_FILTER="NEW_MESSAGE"
+
 
     }
 }

@@ -2,8 +2,14 @@ package com.Qaabel.org.view.fragment.MainActivity.chat
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +20,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.Qaabel.org.R
+import com.Qaabel.org.helpers.Common
 import com.Qaabel.org.helpers.toggleVisiblity
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs
 import com.Qaabel.org.model.SharedPref.SharedPref
@@ -21,6 +28,7 @@ import com.Qaabel.org.model.Utilities.Utilities
 import com.Qaabel.org.model.entities.*
 import com.Qaabel.org.view.adapter.Recycler.MessagesAdapter
 import com.Qaabel.org.viewModel.viewModel.friend.FriendProfileViewModel
+import com.google.android.gms.maps.model.Marker
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import io.socket.client.IO
@@ -28,6 +36,7 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.dialog_edit.*
 import kotlinx.android.synthetic.main.fragment_chat.*
+import java.lang.NullPointerException
 import java.net.URISyntaxException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -46,19 +55,44 @@ class ChatFragment : Fragment() {
     var chatId:String?=null
     var currentUser:UserModel?=null
     var adapter:MessagesAdapter?=null
+    lateinit var mMessageReceiver:BroadcastReceiver
 
     private lateinit var mSocket: Socket
 
+    companion object{
+        var visible=false
+    }
 
 
+    override fun onStart() {
+        super.onStart()
+        LocalBroadcastManager.getInstance(context!!).registerReceiver(
+                mMessageReceiver,  IntentFilter(Common.NEW_MESSAGE_FILTER))
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        LocalBroadcastManager.getInstance(context!!).unregisterReceiver(mMessageReceiver)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         friendProfileViewModel=ViewModelProviders.of(this).get(FriendProfileViewModel::class.java)
         token=SharedPref(context).getStrin(AppSharedPrefs.SHARED_PREF_TOKRN)
         currentUser=SharedPref(context).getUser(AppSharedPrefs.SHARED_PREF_lOGIN_USER)
-       // initSocket()
+       initBroadCast()
 
+    }
+
+    override fun onResume() {
+        visible=true
+        super.onResume()
+    }
+
+    override fun onPause() {
+        visible=false
+        super.onPause()
     }
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -142,7 +176,15 @@ class ChatFragment : Fragment() {
         messageModel.sender=currentUser?._id
         messageModel.message=message
        adapter?.addNewMessage(messageModel)
-       chatlist?.scrollToPosition(adapter?.itemCount!!-1)
+        try {
+            chatlist?.scrollToPosition(adapter?.itemCount!!-1)
+        }
+
+        catch (e:NullPointerException){
+            Log.d(TAG, "buildMessage: --------------------CHAT LIST RECYCLERVIEW---------------------"+chatlist)
+            Log.d(TAG, "buildMessage: -----------------------ADAPTER------------------"+adapter)
+            Log.d(TAG, "buildMessage: ---------------------------ITEM COUNT-------------------"+adapter?.itemCount)
+        }
     }
 
     private fun init(){
@@ -176,48 +218,6 @@ class ChatFragment : Fragment() {
         })
     }
 
-    private fun initSocket(){
-        try {
-           mSocket= IO.socket(Utilities.BASE_URL)
-            mSocket.let {
-                it.connect()
-                mSocket.on(Socket.EVENT_CONNECT){
-                    mSocket.emit("register",token)
-                    mSocket.emit("joinChatRoom")
-
-                }
-            }
-             mSocket.on(Socket.EVENT_DISCONNECT){
-
-             }
-
-            mSocket.on("message",Emitter.Listener {
-                Log.d(TAG, "initSocket: ---------------------------------------------------------"+it[0].toString())
-                 var  gson = Gson()
-                 var socketModel=gson.fromJson(it[0].toString(),SocketModel::class.java)
-                 var message=socketModel?.getMessage()
-                Log.d(TAG, "initSocket: ----------------------------------------"+message?.message)
-
-               activity?.runOnUiThread {
-                   adapter?.addNewMessage(message)
-                   chatlist.scrollToPosition(adapter?.itemCount!!-1)
-               }
-            })
-
-            mSocket.on("typing", Emitter.Listener {
-                Log.d(TAG, "initSocket: ----------------------------------------------------------------------"+it.size)
-                    activity?.runOnUiThread {
-                        typingTxt.toggleVisiblity(true)
-                    }
-
-            })
-
-
-        }
-
-        catch (e: Exception) {
-        }
-    }
 
     private fun populateList(messages: ArrayList<MessageModel>) {
         messages.reverse()
@@ -230,7 +230,17 @@ class ChatFragment : Fragment() {
     }
 
 
+    private fun initBroadCast() {
 
+        mMessageReceiver=object: BroadcastReceiver(){
+            override fun onReceive(context: Context?, intent: Intent?) {
+                    val message:SocketModel= intent?.getParcelableExtra(Common.SERVICE_CHAT_MESSAGE) as SocketModel
+                    adapter?.addNewMessage(message.getMessage())
+                    chatlist.scrollToPosition(adapter?.itemCount!!-1)
+
+            }
+        }
+    }
 
 }
 

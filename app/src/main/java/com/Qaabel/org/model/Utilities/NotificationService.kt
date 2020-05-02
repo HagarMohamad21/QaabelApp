@@ -10,13 +10,18 @@ import android.os.Build
 import android.os.IBinder
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
+import android.widget.Toast
 import com.Qaabel.org.helpers.Common
 import com.Qaabel.org.helpers.NotificationCustom
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs
 import com.Qaabel.org.model.SharedPref.SharedPref
+import com.Qaabel.org.model.entities.FriendModel
 import com.Qaabel.org.model.entities.SocketModel
 import com.Qaabel.org.model.entities.UserModel
+import com.Qaabel.org.view.fragment.MainActivity.chat.ChatFragment
+import com.Qaabel.org.view.fragment.MainActivity.home.MapFragment
 import com.google.gson.Gson
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -90,33 +95,43 @@ public class NotificationService : Service() {
             }
 
 
-            mSocket?.on("message",Emitter.Listener {
+            mSocket?.on("message") {
                 Log.d(TAG, "initSocket: ---------------------------------------------------------"+it[0].toString())
                 var  gson = Gson()
                 var socketModel=gson.fromJson(it[0].toString(), SocketModel::class.java)
                 var message=socketModel?.getMessage()
                 Log.d(TAG, "initSocket: ----------------------------------------"+message?.message)
+                if(ChatFragment.visible){
+                    var intent=Intent(Common.NEW_MESSAGE_FILTER)
+                    intent.putExtra(Common.SERVICE_CHAT_MESSAGE,socketModel)
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+                }
+                else{
+                    var notification=NotificationCustom(applicationContext,"${socketModel.getUser()?.name}",message!!.message, Common.NotificationType_MESSAGE,socketModel?.getUser())
+                    notification.sendNotification()
+                }
 
-//                activity?.runOnUiThread {
-//                    adapter?.addNewMessage(message)
-//                    chatlist.scrollToPosition(adapter?.itemCount!!-1)
-//                }
-                var notification=NotificationCustom(applicationContext,"${socketModel.getUser()?.name}",message!!.message, Common.NotificationType_MESSAGE,socketModel?.getUser())
-                notification.sendNotification()
 
 
-            })
+            }
 
-            mSocket?.on("flash", Emitter.Listener {
-              //show notification
-                //Toast.makeText(applicationContext,"New Flash",Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "onCreate: -------------------NEW FLASH--------------------")
-
+            mSocket?.on("flash") {
                 var gson=Gson()
-                var flashUser:UserModel= gson.fromJson(it[0].toString(),UserModel::class.java)
-                var notification=NotificationCustom(applicationContext,"New Flash","${flashUser.name} just flashed you!",Common.NotificationType_FLASH,null)
-                notification.sendNotification()
-            })
+                var flashUser:FriendModel= gson.fromJson(it[0].toString(),FriendModel::class.java)
+                Log.d(TAG, "onCreate: -------------------NEW FLASH--------------------")
+                 if(MapFragment.visible){
+                   var intent=Intent(Common.NEW_FLASH_FILTER)
+                     intent.putExtra(Common.SERVICE_USER,flashUser)
+                     intent.putExtra(Common.SERVICE_MESSAGE,Common.NotificationType_FLASH)
+                     LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+                 }
+                else{
+
+                     var notification=NotificationCustom(applicationContext,"New Flash","${flashUser.name} just flashed you!",Common.NotificationType_FLASH,null)
+                     notification.sendNotification()   
+                 }
+              
+            }
 
             mSocket?.on("flashBack", Emitter.Listener {
               //show notification

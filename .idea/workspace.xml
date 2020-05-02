@@ -18,6 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fa7c9f0-7d4a-4981-a971-7be0ac34ceba" name="Default Changelist" comment="added">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/interfaces/OnServiceDataReady.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -29,19 +30,13 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/Notification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/NotificationCustom.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/Common.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/NotificationService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/NotificationService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/adapter/Recycler/FlashsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/adapter/Recycler/FlashsAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/FriendModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/FriendModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/SocketModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/SocketModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/activity/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/chat/ChatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/chat/ChatFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/chat/MessagesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/chat/MessagesFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/flash/FlashesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/flash/FlashesFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/MapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/MapFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/NearUsersListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/NearUsersListFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/profile/ProfileEditFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/profile/ProfileEditFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/profile/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/profile/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/profile/SettingsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/profile/SettingsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/viewModel/viewModel/friend/FriendProfileViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/viewModel/viewModel/friend/FriendProfileViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/card_flashes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/card_flashes.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +44,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="197dce2e9804" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_27" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -72,10 +67,10 @@
       <list>
         <option value="Kotlin File" />
         <option value="Class" />
-        <option value="Kotlin Interface" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Interface" />
       </list>
     </option>
   </component>
@@ -91,8 +86,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-30T14:05:38.425Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="197dce2e9804" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-05-02T12:57:29.209Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SelectDeploymentTargetsDialog.selectedDevices" value="197dce2e9804&#10;Pixel_2_API_27" />
     <property name="ToolWindowGradle.ShowToolbar" value="false" />

@@ -104,6 +104,9 @@ public class FriendModel implements Parcelable
         isflashedyou = tmpIsflashedyou == 0 ? null : tmpIsflashedyou == 1;
     }
 
+    public FriendModel() {
+    }
+
     public static final Creator<FriendModel> CREATOR = new Creator<FriendModel>() {
         @Override
         public FriendModel createFromParcel(Parcel in) {
