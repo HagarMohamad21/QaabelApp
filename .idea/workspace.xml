@@ -18,7 +18,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fa7c9f0-7d4a-4981-a971-7be0ac34ceba" name="Default Changelist" comment="added">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/interfaces/OnServiceDataReady.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/MarkerAnimation.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -29,13 +29,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/Common.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/NotificationService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/Utilities/NotificationService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/FriendModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/FriendModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/SocketModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/model/entities/SocketModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/activity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/chat/ChatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/chat/ChatFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/CustomMarker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/CustomMarker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/DownloadMarkerImage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/helpers/DownloadMarkerImage.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/MapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/Qaabel/org/view/fragment/MainActivity/home/MapFragment.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,7 +43,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_27" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="197dce2e9804" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -69,8 +68,8 @@
         <option value="Class" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -86,8 +85,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="197dce2e9804" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-05-02T12:57:29.209Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-05-03T10:39:08.785Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SelectDeploymentTargetsDialog.selectedDevices" value="197dce2e9804&#10;Pixel_2_API_27" />
     <property name="ToolWindowGradle.ShowToolbar" value="false" />
@@ -95,7 +94,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">

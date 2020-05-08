@@ -17,7 +17,6 @@ class DownloadMarkerImage(var mapFragment: MapFragment) {
     @SuppressLint("CheckResult")
 
     fun downloadImage(userName: String, url: String, resourse: Int){
-        Log.d(TAG, "downloadImage: ---------------------------------------------*********************------------------------------------------------------------------")
         getBitmapSingle(Picasso.get(), url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

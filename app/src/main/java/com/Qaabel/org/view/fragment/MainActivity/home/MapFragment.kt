@@ -68,6 +68,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     var isGpsOn = false
     var locationGrated = false
     val DEFAULT_ZOOM = 18f
+   var  NEAR_USER_AVAILABLE=false
     val HIDING_ZOOM=15f
     val SHOWING_ZOOM=16f
     val REQUEST_LOCATION = 1001
@@ -144,6 +145,17 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         LocalBroadcastManager.getInstance(context!!).registerReceiver(
                 mMessageReceiver,  IntentFilter(Common.NEW_FLASH_FILTER))
 
+
+
+         checkGps()
+        if(locationGrated&&isGpsOn&&!NEAR_USER_AVAILABLE){
+            getDeviceLocation()
+            getNearUsers()
+            NEAR_USER_AVAILABLE=true
+        }
+        initMapAndGpsViews()
+        toggleMap()
+
     }
 
     override fun onStop() {
@@ -207,7 +219,6 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         requestPermission()
         addGpsListener()
         setListeners()
-        initMapAndGpsViews()
         infoWindowListener=InfoWindowListener()
         popupRootView.viewTreeObserver.addOnGlobalLayoutListener(infoWindowListener)
 
@@ -217,9 +228,10 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         mGoogleMap=p0
         mGoogleMap?.setOnMarkerClickListener(this)
         mGoogleMap?.setOnMapClickListener(this)
-        if (locationGrated && isGpsOn) {
+        if (locationGrated && isGpsOn&&!NEAR_USER_AVAILABLE) {
             getDeviceLocation()
             getNearUsers()
+            NEAR_USER_AVAILABLE=true
             mGoogleMap?.setOnCameraChangeListener { newPosition ->
                 if (newPosition.zoom <HIDING_ZOOM ) {
 
@@ -261,7 +273,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         mapFragment!!.getMapAsync(this)
     }
     private fun checkGps() {
-        val manager = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val manager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         isGpsOn = manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
     private fun requestPermission() {
@@ -278,12 +290,11 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
             override fun onReceive(context: Context, intent: Intent) {
                 if (intent.action == "android.location.PROVIDERS_CHANGED") {
                     toggleMap()
-                    if(locationGrated&&isGpsOn){
+                    if(locationGrated&&isGpsOn&&!NEAR_USER_AVAILABLE){
                         getDeviceLocation()
                         getNearUsers()
+                        NEAR_USER_AVAILABLE=true
                     }
-
-
                     initMapAndGpsViews()
                 }
             }
@@ -322,6 +333,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
             Log.d(TAG, "toggleMap: FASLE")
         }
     }
+
     private fun buildLocationRequest() {
         locationRequest = LocationRequest.create()
         locationRequest?.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -329,6 +341,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         locationRequest?.fastestInterval = 5000
         locationRequest?.smallestDisplacement = 10f
     }
+
     private fun moveCamera(location: LatLng?) {
         Log.d(TAG, "moveCamera: --------------------------------------")
         val cameraUpdate: CameraUpdate
@@ -397,13 +410,13 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
     private fun initAddressText() {
         val geocoder = Geocoder(activity!!, Locale.ENGLISH)
-        if (city_name!=null)
-            city_name.text= LocationsHelper().getAdrress(lastLocation!!,geocoder)
+        if (city_name!=null&&lastLocation!=null)
+            city_name?.text= LocationsHelper().getAdrress(lastLocation!!,geocoder)
 
     }
 
     private fun getDeviceLocation() {
-        fusedLocationProviderClient!!.lastLocation.addOnCompleteListener(OnCompleteListener {
+        fusedLocationProviderClient?.lastLocation?.addOnCompleteListener(OnCompleteListener {
             if (it.isSuccessful) {
                 lastLocation = it.result
 
@@ -416,21 +429,25 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
                 } else {
                     buildLocationRequest()
                     buildLocationCallback()
-                    fusedLocationProviderClient!!.requestLocationUpdates(locationRequest,locationCallback,null)
+                    fusedLocationProviderClient?.requestLocationUpdates(locationRequest,locationCallback,null)
 
                 }
             }
 
         })
     }
+
+
     private fun buildLocationCallback() {
+
         Log.d(TAG, "buildLocationCallback: --------------------------------------------------------")
         locationCallback= object :LocationCallback(){
             override fun onLocationResult(p0: LocationResult?) {
                 if(p0 == null)
                     return
                 Log.d(TAG, "onLocationResult: -------------------------")
-                mGoogleMap?.clear()
+
+
                 lastLocation=p0.lastLocation
                 Common.USER_LOCATION=lastLocation
                 moveCamera(null)
@@ -454,6 +471,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 //                        location.latitude= 30.0491303
 //                        location.longitude=31.2421211
                         utilities.SendMyLocation(lastLocation,context!!)
+
                     }
 
                 }
@@ -548,12 +566,13 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
                     mUsers = apiNearUsersResponse.users
                     addNearUserToMap()
                     available_num.text = mUsers!!.size.toString() + "  available"
+                    NEAR_USER_AVAILABLE=true
                 }
             })
 
         }
         else{
-
+            NEAR_USER_AVAILABLE=false
         }
     }
 

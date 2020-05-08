@@ -39,26 +39,30 @@ class CustomMarker(var mapFragment: MapFragment) {
 
 
     fun createCustomMarker(image:Bitmap?,markerColor: Int,showNotification:Boolean): BitmapDescriptor? {
-        val markerView=LayoutInflater.from(mapFragment.context).inflate(R.layout.custom_marker,null)
-        var profileImage=markerView.profileImage
-        var markerImage=markerView.markerImage
-        markerView.notificationDot.toggleVisiblity(showNotification)
-        if(image!=null){
-          profileImage.setImageBitmap(image)
+        if(mapFragment.context!=null){
+            val markerView=LayoutInflater.from(mapFragment.context).inflate(R.layout.custom_marker,null)
+            var profileImage=markerView.profileImage
+            var markerImage=markerView.markerImage
+            markerView.notificationDot.toggleVisiblity(showNotification)
+            if(image!=null){
+                profileImage.setImageBitmap(image)
+            }
+
+            if(markerColor!=-1){
+                markerImage.setImageResource(markerColor)
+            }
+            val displayMetrics = DisplayMetrics()
+            markerView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            markerView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+            markerView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+            markerView.buildDrawingCache()
+            val bitmap = Bitmap.createBitmap(markerView.measuredWidth, markerView.measuredHeight, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            markerView.draw(canvas)
+            return BitmapDescriptorFactory.fromBitmap(bitmap)
         }
 
-        if(markerColor!=-1){
-            markerImage.setImageResource(markerColor)
-        }
-        val displayMetrics = DisplayMetrics()
-        markerView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        markerView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
-        markerView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
-        markerView.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(markerView.measuredWidth, markerView.measuredHeight, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        markerView.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
+       else return null
     }
 
     fun createPlaceMarker(image: String?,numberOfUser:Int) :BitmapDescriptor{
