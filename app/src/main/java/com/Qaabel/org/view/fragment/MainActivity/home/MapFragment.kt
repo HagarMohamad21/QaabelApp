@@ -68,7 +68,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     var isGpsOn = false
     var locationGrated = false
     val DEFAULT_ZOOM = 18f
-   var  NEAR_USER_AVAILABLE=false
+    var  NEAR_USER_AVAILABLE=false
     val HIDING_ZOOM=15f
     val SHOWING_ZOOM=16f
     val REQUEST_LOCATION = 1001
@@ -100,11 +100,13 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     var markers=HashMap<String,Marker?>()
     var nearUsersProfiles=HashMap<String,Bitmap?>()
     var customMarker:CustomMarker?=null
+    private lateinit var markerAnimation:MarkerAnimation
+    private var firstTimeOpenMap=true
     companion object{
         var visible=false
     }
 
-      lateinit var mMessageReceiver:BroadcastReceiver
+    lateinit var mMessageReceiver:BroadcastReceiver
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == REQUEST_LOCATION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -136,6 +138,13 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     override fun onDestroy() {
         popupRootView?.viewTreeObserver?.removeOnGlobalLayoutListener(infoWindowListener!!)
         handler?.removeCallbacks(positionUpdaterRunnable)
+        try{
+            fusedLocationProviderClient?.removeLocationUpdates(locationCallback)
+        }
+        catch (e:Exception){
+            Log.d(TAG, "onDestroy: ${e.printStackTrace()}")
+        }
+
         super.onDestroy()
     }
 
@@ -147,7 +156,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
 
 
-         checkGps()
+        checkGps()
         if(locationGrated&&isGpsOn&&!NEAR_USER_AVAILABLE){
             getDeviceLocation()
             getNearUsers()
@@ -162,6 +171,13 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         super.onStop()
         activity?.unregisterReceiver(mGpsSwitchStateReceiver)
         LocalBroadcastManager.getInstance(context!!).unregisterReceiver(mMessageReceiver)
+        try{
+            fusedLocationProviderClient?.removeLocationUpdates(locationCallback)
+        }
+        catch (e:Exception){
+            Log.d(TAG, "onDestroy: ${e.printStackTrace()}")
+        }
+
     }
 
 
@@ -178,7 +194,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         checkIfUserCompletedData()
         markerHeight=resources.getDrawable(R.drawable.ic_pinkmarker).intrinsicHeight
         initBroadCast()
-
+        markerAnimation= MarkerAnimation(LatLngInterpolator.Linear(),this)
 
 
     }
@@ -188,7 +204,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         mMessageReceiver=object:BroadcastReceiver(){
             override fun onReceive(context: Context?, intent: Intent?) {
                 if(intent?.getStringExtra(Common.SERVICE_MESSAGE)==Common.NotificationType_FLASH){
-                   val flashUser:FriendModel= intent.getParcelableExtra(Common.SERVICE_USER) as FriendModel
+                    val flashUser:FriendModel= intent.getParcelableExtra(Common.SERVICE_USER) as FriendModel
                     val marker:Marker?=markers[flashUser.username]
                     val user=marker?.tag as FriendModel
                     val gender=user.sex
@@ -264,7 +280,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
             warningImg.visibility=View.GONE
             warningTxt.visibility=View.GONE
             bundleLocation=null
-            getDeviceLocation() }
+            moveCamera(null) }
         RxView.clicks(go_map).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe()
         { _: Any? -> Navigation.findNavController(this.activity!!, R.id.map).navigate(R.id.action_navigation_Friend_to_navigation_home) }
     }
@@ -337,12 +353,12 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     private fun buildLocationRequest() {
         locationRequest = LocationRequest.create()
         locationRequest?.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest?.interval = 10000
-        locationRequest?.fastestInterval = 5000
-        locationRequest?.smallestDisplacement = 10f
+        locationRequest?.interval=2000
+        locationRequest?.fastestInterval = 1500
+        locationRequest?.smallestDisplacement = 4f
     }
 
-    private fun moveCamera(location: LatLng?) {
+     fun moveCamera(location: LatLng?,bearing:Double=0.0) {
         Log.d(TAG, "moveCamera: --------------------------------------")
         val cameraUpdate: CameraUpdate
         if(location==null&&lastLocation!=null)
@@ -361,6 +377,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
                     currentUserMarker= mGoogleMap?.addMarker(MarkerOptions().icon(customMarker
                             ?.createCustomMarker(null,-1,false))
                             .title("Me")
+                            .flat(true)
                             .position(lastLocationLatLang))
                     currentUserMarker?.tag=null
                     markers["Me"]=currentUserMarker
@@ -372,6 +389,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
                 }
 
             }
+
             else{
                 Log.d(TAG, "moveCamera:currentUserMarker -------------------not null ")
             }
@@ -381,15 +399,16 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
                 mGoogleMap?.moveCamera(cameraUpdate)
                 currentLocationBtnClicked=false
             }
-    }
-    else{
-        Log.d(TAG, "moveCamera: -----------ELSE--------------------")
-        cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM)
-        mGoogleMap?.moveCamera(cameraUpdate)
-
-    }
-    if(lastLocation!=null)
+        }
+        else{
+            Log.d(TAG, "moveCamera: -----------ELSE--------------------")
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM)
+            mGoogleMap?.moveCamera(cameraUpdate)
+        }
+        if(lastLocation!=null)
             initAddressText()
+//         if(bearing!=0.0)
+//             currentUserMarker?.rotation=bearing.toFloat()-180
     }
 
 
@@ -419,19 +438,14 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         fusedLocationProviderClient?.lastLocation?.addOnCompleteListener(OnCompleteListener {
             if (it.isSuccessful) {
                 lastLocation = it.result
-
                 Common.USER_LOCATION=lastLocation
-                if (lastLocation != null) {
-                    Log.d(TAG, "getDeviceLocation: ----------LAST LOCATION-------"+lastLocation!!.latitude+" "+lastLocation!!.longitude)
-                    moveCamera(null)
+
                     if(bundleLocation!=null)
                         findDistanceBetweenCurrentLocationAndPlace(bundleLocation)
-                } else {
+
                     buildLocationRequest()
                     buildLocationCallback()
                     fusedLocationProviderClient?.requestLocationUpdates(locationRequest,locationCallback,null)
-
-                }
             }
 
         })
@@ -445,12 +459,14 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
             override fun onLocationResult(p0: LocationResult?) {
                 if(p0 == null)
                     return
-                Log.d(TAG, "onLocationResult: -------------------------")
-
-
                 lastLocation=p0.lastLocation
                 Common.USER_LOCATION=lastLocation
-                moveCamera(null)
+                if(firstTimeOpenMap){
+                    moveCamera(null)
+                    firstTimeOpenMap=false
+                }
+                else
+                markerAnimation.animate(currentUserMarker, LatLng(lastLocation?.latitude!!,lastLocation?.longitude!!))
             }
         }
 
@@ -514,8 +530,8 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
                 }
             }
-            else
-            {
+        else
+        {
             Log.d(TAG, "checkIfUserCompletedData: --------------USER IS NULL---------------")
             //user is null
             var  newFragment = CompeleteFragment.newInstance("Complete")
@@ -578,53 +594,53 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
     private fun addPlacesToMap(places: List<NearPlace?>?) {
         Log.d(TAG, "addPlacesToMap: --------------------------------------------"+places?.size)
-      for(Place in places!!){
+        for(Place in places!!){
 
-          var latLng=LatLng(Place?.getGeometry()?.getLocation()?.getLat()!!,Place?.getGeometry()?.getLocation()?.getLng()!!)
-          var marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
-                  .title(Place?.getName())
-                  .icon(customMarker?.createPlaceMarker("",Place?.getNumberOfUsers()!!)))
-      }
+            var latLng=LatLng(Place?.getGeometry()?.getLocation()?.getLat()!!,Place?.getGeometry()?.getLocation()?.getLng()!!)
+            var marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
+                    .title(Place?.getName())
+                    .icon(customMarker?.createPlaceMarker("",Place?.getNumberOfUsers()!!)))
+        }
     }
 
     private fun addNearUserToMap() {
         var latLng:LatLng
         var marker:Marker
-        for(user in mUsers!!){
-            Log.d(TAG, "addNearUserToMap: "+user.image)
-            latLng= LatLng(user.location.coordinates[0],user.location.coordinates[1])
-            if(findDistanceBetweenCurrentLocationAndPlace(latLng)>40){
-                Log.d(TAG, "addNearUserToMap: SOME USER IS AWAY BY MORE THAN 10-------------${user.name}")
-
-                if(Common.USER_LOCATION!=null)
-                    nearUsersViewModel?.nearPlaces(mtoken,lastLocation)?.observe(this, android.arch.lifecycle.Observer {
-                        addPlacesToMap(it?.getPlaces())
-                        if(it?.getPlaces()?.isEmpty()!!){
-                            var marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
-                                    .title(user.name)
-                                    .icon(customMarker?.createPlaceMarker("",1)))
-                        }
-                    })
-            }
-
-            else{
-                var gender=user.sex
-                var resourse=if(gender==0) { R.drawable.ic_bluemarker }
-                else{R.drawable.ic_pinkmarker}
-
-                marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
-                        .title(user.name)
-                        .icon(customMarker?.createCustomMarker(null,resourse,false)))
-                marker.tag=user
-                markers[user.username] = marker
-                if(user?.image!=defImage){
-                  downloadMarkerImage.downloadImage(user?.username,user?.image,resourse)
-                }
-                else nearUsersProfiles[user?.username]=null
-            }
-
-
-        }
+//        for(user in mUsers!!){
+//            Log.d(TAG, "addNearUserToMap: "+user.image)
+//            latLng= LatLng(user.location.coordinates[0],user.location.coordinates[1])
+//            if(findDistanceBetweenCurrentLocationAndPlace(latLng)>40){
+//                Log.d(TAG, "addNearUserToMap: SOME USER IS AWAY BY MORE THAN 10-------------${user.name}")
+//
+//                if(Common.USER_LOCATION!=null)
+//                    nearUsersViewModel?.nearPlaces(mtoken,lastLocation)?.observe(this, android.arch.lifecycle.Observer {
+//                        addPlacesToMap(it?.getPlaces())
+//                        if(it?.getPlaces()?.isEmpty()!!){
+//                            var marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
+//                                    .title(user.name)
+//                                    .icon(customMarker?.createPlaceMarker("",1)))
+//                        }
+//                    })
+//            }
+//
+//            else{
+//                var gender=user.sex
+//                var resourse=if(gender==0) { R.drawable.ic_bluemarker }
+//                else{R.drawable.ic_pinkmarker}
+//
+//                marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
+//                        .title(user.name)
+//                        .icon(customMarker?.createCustomMarker(null,resourse,false)))
+//                marker.tag=user
+//                markers[user.username] = marker
+//                if(user?.image!=defImage){
+//                    downloadMarkerImage.downloadImage(user?.username,user?.image,resourse)
+//                }
+//                else nearUsersProfiles[user?.username]=null
+//            }
+//
+//
+//        }
     }
 
 
@@ -632,48 +648,49 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         if(marker?.tag==null) return false
         var user=(marker?.tag) as FriendModel?
         var projection=mGoogleMap?.projection
-         markerPos=marker.position
+        markerPos=marker.position
         var screenPoint=projection?.toScreenLocation(markerPos)
         if(screenPoint!=null)
-        screenPoint.y-= popupYOffset/2
+            screenPoint.y-= popupYOffset/2
         popupRootView.toggleVisiblity(true)
-         if(user!=null)
-        CustomInfoWindow(this,popupRootView,user)
+        if(user!=null)
+            CustomInfoWindow(this,popupRootView,user)
         var gender=user?.sex
         var resourse=if(gender==0) { R.drawable.ic_bluemarker }
         else{R.drawable.ic_pinkmarker}
 
-       marker?.setIcon(customMarker?.createCustomMarker(nearUsersProfiles[user?.username],resourse,false))
+        marker?.setIcon(customMarker?.createCustomMarker(nearUsersProfiles[user?.username],resourse,false))
         return true
     }
 
 
     override fun onMapClick(p0: LatLng?) {
         popupRootView?.toggleVisiblity(false)
-          }
+    }
 
 
     inner class InfoWindowListener:ViewTreeObserver.OnGlobalLayoutListener{
         override fun onGlobalLayout() {
-          popupXOffset=popupRootView.width/2
-          popupYOffset=popupRootView.height
+            popupXOffset=popupRootView.width/2
+            popupYOffset=popupRootView.height
         }
     }
+
     inner class PositionUpdateRunnable :Runnable{
         private var lastXPos=Integer.MIN_VALUE
         private var lastYPos=Integer.MAX_VALUE
         override fun run() {
-           handler?.postDelayed(this,POPUP_POSITION_REFRESH_INTERVAL)
+            handler?.postDelayed(this,POPUP_POSITION_REFRESH_INTERVAL)
             if(popupRootView.visibility==View.VISIBLE&&markerPos!=null){
-            var targetPos=mGoogleMap?.projection?.toScreenLocation(markerPos)
-             if(lastXPos!=targetPos?.x||lastYPos!=targetPos.y){
-                 if(targetPos!=null){
-                     popupRootView.x= (targetPos.x - popupXOffset).toFloat()
-                     popupRootView.y=(targetPos.y-popupYOffset-markerHeight).toFloat()
-                 }
-                 lastXPos= targetPos?.x!!
-                  lastYPos=targetPos?.y
-             }
+                var targetPos=mGoogleMap?.projection?.toScreenLocation(markerPos)
+                if(lastXPos!=targetPos?.x||lastYPos!=targetPos.y){
+                    if(targetPos!=null){
+                        popupRootView.x= (targetPos.x - popupXOffset).toFloat()
+                        popupRootView.y=(targetPos.y-popupYOffset-markerHeight).toFloat()
+                    }
+                    lastXPos= targetPos?.x!!
+                    lastYPos=targetPos?.y
+                }
             }
         }
 
@@ -682,58 +699,10 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
     override fun onPause() {
         super.onPause()
-
         visible=false
         Log.d(TAG, "onPause: -----------------------------------VISISBLE ---------------------------$visible")
-        //Log.d(TAG, "onPause: -----------------------------------HAS WINDOW FOCUS ---------------------------"+())
-
         popupRootView.viewTreeObserver.removeOnGlobalLayoutListener(infoWindowListener!!)
         handler?.removeCallbacks(positionUpdaterRunnable)
-    }
-
-
-    private fun initSocket(){
-//        try {
-//            mSocket= IO.socket(Utilities.BASE_URL)
-//            mSocket?.let {
-//                it.connect()
-//                mSocket?.on(Socket.EVENT_CONNECT){
-//                                        activity?.runOnUiThread {
-//                Toast.makeText(context,"Connected",Toast.LENGTH_SHORT).show()
-//                    }
-//                    mSocket?.emit("register",mtoken)
-//                }
-//            }
-//            mSocket?.on(io.socket.client.Socket.EVENT_DISCONNECT){
-//                                 activity?.runOnUiThread {
-//               Toast.makeText(context,"DisConnected",Toast.LENGTH_SHORT).show()
-//                 }
-//
-//            }
-//
-//
-//            mSocket?.on("flash", Emitter.Listener {
-//                activity?.runOnUiThread {
-//                    Log.d(TAG, "initSocket: ------------------------"+it[0])
-//                    var gson=Gson()
-//                   var flashUser:UserModel= gson.fromJson(it[0].toString(),UserModel::class.java)
-//                    var marker=markers[flashUser.username]
-//                    var user=marker?.tag as FriendModel
-//                    var gender=user.sex
-//                    var resourse=if(gender==0) { R.drawable.ic_bluemarker }
-//                    else{R.drawable.ic_pinkmarker}
-//                    marker?.setIcon(customMarker?.createCustomMarker(nearUsersProfiles[user?.username],resourse,true))
-//
-//            }
-//                if(activity==null){
-//                    Toast.makeText(context,"Show Notification",Toast.LENGTH_SHORT).show()
-//                }
-//            })
-//
-//        }
-//
-//        catch (e: Exception) {
-//        }
     }
 
 
