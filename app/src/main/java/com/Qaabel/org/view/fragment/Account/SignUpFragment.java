@@ -411,11 +411,17 @@ public class SignUpFragment extends Fragment implements CountryCodePicker.OnCoun
             passwordET.setError(getString(R.string.field_require));
             passwordET.requestFocus();
         }
+        else if(passwordET.getText().length()<8){
+            passwordET.setError("Password length should be more than 8 chars");
+            passwordET.requestFocus();
+        }
         else if (!termsCheckBox.isChecked())
+
         {
             termsCheckBox.setError(" you should accept the Terms ");
             termsCheckBox.requestFocus();
-        } else if (!(passwordET.getText().toString()).equals(confirmPasswordET.getText().toString()))
+        }
+        else if (!(passwordET.getText().toString()).equals(confirmPasswordET.getText().toString()))
         {
             passwordsDoesntMatch.setVisibility(View.VISIBLE);
 
@@ -425,7 +431,8 @@ public class SignUpFragment extends Fragment implements CountryCodePicker.OnCoun
 
     private void ActiveButton()
     {termsCheckBox.setError(null);
-        if (userNameET.getText().toString().isEmpty() || phoneET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty() || confirmPasswordET.getText().toString().isEmpty() || nameET.getText().toString().isEmpty() || !termsCheckBox.isChecked() || (!(passwordET.getText().toString()).equals(confirmPasswordET.getText().toString())))
+        if (userNameET.getText().toString().isEmpty() || phoneET.getText().toString().isEmpty() || passwordET.getText().toString().isEmpty() || confirmPasswordET.getText().toString().isEmpty() || nameET.getText().toString().isEmpty() || !termsCheckBox.isChecked() ||
+                (!(passwordET.getText().toString()).equals(confirmPasswordET.getText().toString()))||passwordET.getText().length()<8)
         {
             signUpBTN.setActivated(false);
         } else

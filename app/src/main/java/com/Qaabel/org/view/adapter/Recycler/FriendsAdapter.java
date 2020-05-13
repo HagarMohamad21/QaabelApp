@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         CircleImageView profileImg;
         TextView name_et;
         ImageView freind_chat;
+        LinearLayout layout;
         //        public CardView orderCardView;
 
         public ViewHolder(View view)
@@ -51,6 +53,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             name_et = view.findViewById(R.id.name);
             profileImg = view.findViewById(R.id.profile_img);
             freind_chat = view.findViewById(R.id.chat_user_status);
+            layout=view.findViewById(R.id.layout);
 
         }
     }
@@ -62,6 +65,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
     @NonNull
     @Override
+
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_friends, parent, false);
@@ -77,14 +81,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         holder.name_et.setText(users.get(position).getName());
         Picasso.get().load(Uri.parse(users.get(position).getImage())).into(holder.profileImg);
-        RxView.clicks(holder.profileImg).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
-                subscribe(o -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("FRIEND_USER",users.get(position));
-                    bundle.putString("SOURCE","FRIENDS ADAPTER");
-                   Navigation.findNavController(mView.getActivity(),R.id.shopping_nav_host_fragment).navigate(R.id.action_navigation_flash_to_navigation_user_profile, bundle);
-                });
-        RxView.clicks(holder.freind_chat).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
+        RxView.clicks(holder.layout).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(o -> {
                     Bundle bundle = new Bundle();
                     bundle.putString("CHAT_ID",users.get(position).getChat());

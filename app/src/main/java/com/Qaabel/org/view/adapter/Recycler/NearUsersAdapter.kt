@@ -45,13 +45,15 @@ class NearUsersAdapter(var context: Context,var nearUsers:List<FriendModel> ,var
     private val TAG = "NearUsersAdapter"
     inner class NearUserHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
         fun bind(pos: FriendModel, index: Int) {
+
+            itemView.friendDes.text=pos.desciption
             itemView.friend_img.setOnClickListener {
                openProfile(pos)
             }
             itemView.setOnClickListener {
                openProfile(pos)
             }
-            if(!pos!!.agePrivate)
+            if(!pos.agePrivate)
                 itemView.friendAge.text=getAge(pos)
 
           itemView.friendDes.text=pos.desciption

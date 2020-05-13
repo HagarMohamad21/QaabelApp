@@ -160,7 +160,7 @@ public class CompeleteFragment extends DialogFragment implements ImageDialog.Ima
     {
         RxView.clicks(closeButton).observeOn(AndroidSchedulers.mainThread()).subscribe(o->{
            //logout
-            Utilities.LogOut(getActivity());
+            Utilities.LogOut(getActivity(),false);
         });
         RxView.clicks(saveBTN).throttleFirst(1, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(o -> {

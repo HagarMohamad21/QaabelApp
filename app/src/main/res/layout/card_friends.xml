@@ -6,7 +6,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-         android:id="@+id/mar"
+         android:id="@+id/layout"
         android:orientation="horizontal"
     android:background="@color/white"
         android:padding="4dp">

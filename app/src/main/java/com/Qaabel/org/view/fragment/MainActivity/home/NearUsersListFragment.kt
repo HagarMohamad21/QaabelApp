@@ -39,6 +39,7 @@ import kotlinx.android.synthetic.main.fragment_near_users_list.go_map
 
 
 class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, OnLocationSent, OnFlashedSent,OnFlashBack,RequestNavigation {
+    private var vw: View?=null
     private val TAG = "NearUsersListFragment"
     private var mUsers: List<FriendModel>?=null
     private var nearUsersViewModel: NearUsersViewModel?=null
@@ -50,9 +51,10 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
 
 
     private fun getNearUsers() {
+
         isActive.setActive(true)
         val mtoken = SharedPref(context).getStrin(AppSharedPrefs.SHARED_PREF_TOKRN)
-        nearUsersViewModel!!.isActive(mtoken, isActive).observe(this, android.arch.lifecycle.Observer {
+        nearUsersViewModel?.isActive(mtoken, isActive)?.observe(this, android.arch.lifecycle.Observer {
 
             if(it!=null){
                 if(it.getMessage()=="done"){
@@ -78,12 +80,16 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment
-        return  inflater.inflate(R.layout.fragment_near_users_list, container, false)
+        if(vw==null){
+            vw=  inflater.inflate(R.layout.fragment_near_users_list, container, false)
+            getNearUsers()
+        }
+
+        return vw
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getNearUsers()
         actions()
     }
 
@@ -92,7 +98,7 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
 
     private fun actions() {
         go_map.setOnClickListener { Navigation.findNavController(this.activity!!, R.id.shopping_nav_host_fragment).navigate(R.id.action_navigation_Friend_to_navigation_home) }
-        back_img.setOnClickListener { fragmentManager!!.popBackStack() }
+        back_img.setOnClickListener { fragmentManager?.popBackStack() }
     }
 
 
@@ -100,7 +106,7 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
 
     override fun onLocationSent(message: String) {
         if(message=="Location updated successfully"){
-            nearUsersViewModel!!.nearUsers(mtoken).observe(this, android.arch.lifecycle.Observer<ApiNearUsersResponse> {
+            nearUsersViewModel?.nearUsers(mtoken)?.observe(this, android.arch.lifecycle.Observer<ApiNearUsersResponse> {
                 apiNearUsersResponse: ApiNearUsersResponse? ->
                 if (apiNearUsersResponse != null) {
                     mUsers = apiNearUsersResponse.users

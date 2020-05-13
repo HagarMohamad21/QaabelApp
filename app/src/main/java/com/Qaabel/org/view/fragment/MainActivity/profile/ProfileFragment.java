@@ -67,7 +67,6 @@ public class ProfileFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
         if(view==null){
             view = inflater.inflate(R.layout.fragment_profile, container, false);
             init(view);
@@ -125,7 +124,7 @@ public class ProfileFragment extends Fragment
         RxView.clicks(editProfileView).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(objectConsumer);
         RxView.clicks(log_out_btn).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
-                subscribe(o -> Utilities.LogOut(getActivity()));
+                subscribe(o -> Utilities.LogOut(getActivity(),false));
 
 
     }

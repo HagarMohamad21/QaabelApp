@@ -38,11 +38,16 @@ public class FriendProfileRepository
             @Override
             public void onResponse(Call<ApiLoginResponse> call, Response<ApiLoginResponse> response)
             {
-                Log.d(TAG, "onResponse: ---------00000000000000000--------"+response.body());
+                Log.d(TAG, "onResponse: ---------00000000000000000--------"+response.message());
+                if(response.message().equals("Unauthorized")&&response.code()==401){
+                    ApiLoginResponse apiLoginResponse=new ApiLoginResponse();
+                    apiLoginResponse.setMessage("Unauthorized");
+                    data.setValue(apiLoginResponse);
+                }
 
                 if (response.body() != null)
                 {
-
+                    Log.d(TAG, "onResponse: ------------------------------NOT NULL---------------------");
                     data.setValue(response.body());
                 } else
                 {

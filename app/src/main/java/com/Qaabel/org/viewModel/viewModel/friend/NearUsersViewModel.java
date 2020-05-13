@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import com.Qaabel.org.model.Api.Response.ActiveResponse;
 import com.Qaabel.org.model.Api.Response.ApiNearPlacesResponse;
 import com.Qaabel.org.model.Api.Response.ApiNearUsersResponse;
+import com.Qaabel.org.model.Api.Response.UsersInPlaceResponse;
 import com.Qaabel.org.model.entities.Active;
 import com.Qaabel.org.viewModel.Repository.Friend.NearUserRepository;
 
@@ -45,4 +46,10 @@ public class NearUsersViewModel extends AndroidViewModel
     public LiveData<ApiNearPlacesResponse> nearPlaces(String token, Location location){
         return nearUserRepository.getNearPlaces(token,location);
     }
+
+    public LiveData<UsersInPlaceResponse> usersInPlace(String token, Location location){
+        return nearUserRepository.getUsersInPlace(token,location);
+    }
+
+
 }

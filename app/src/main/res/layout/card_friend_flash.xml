@@ -59,9 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:text="I'm  an awesome guy and love cars and movies"
             android:textColor="@color/black"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/friend_img"
             app:layout_constraintTop_toBottomOf="@+id/friendAge" />

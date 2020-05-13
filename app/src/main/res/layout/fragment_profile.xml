@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/user_age_et"
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:textColor="@color/gray_text"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="italic" />
 
             </LinearLayout>
@@ -142,6 +142,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="27dp"
                 android:layout_marginEnd="27dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:text="jkdjflkdjf"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/view3"
@@ -202,15 +205,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
 
 
-
             <ImageView
                 android:id="@+id/imageView11"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginEnd="42dp"
                 android:src="@drawable/ic_round_work"
                 app:layout_constraintBottom_toBottomOf="@+id/user_job_et"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/user_job_et"
                 app:layout_constraintTop_toTopOf="@+id/user_job_et" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>

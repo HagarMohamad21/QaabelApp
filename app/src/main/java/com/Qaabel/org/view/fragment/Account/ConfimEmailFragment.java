@@ -242,7 +242,7 @@ public class ConfimEmailFragment extends DialogFragment
                       saveLoginData(apiLoginResponse,true);
                    }
                    else{
-                       Utilities.LogOut(getActivity());
+                       Utilities.LogOut(getActivity(),false);
                    }
 
                });

@@ -14,6 +14,7 @@ import androidx.navigation.Navigation
 import com.Qaabel.org.R
 import com.Qaabel.org.helpers.Common
 import com.Qaabel.org.helpers.LocationsHelper
+import com.Qaabel.org.helpers.hideKeyboard
 import com.Qaabel.org.interfaces.OnPlaceSelected
 import com.Qaabel.org.model.Api.PlaceRequest
 import com.Qaabel.org.model.Api.Response.PlaceResult
@@ -84,6 +85,8 @@ class SearchFragment : Fragment() ,OnPlaceSelected{
         searchBar.setOnEditorActionListener { view, actionId, event ->
          if(actionId==EditorInfo.IME_ACTION_SEARCH
                  ||actionId==EditorInfo.IME_ACTION_DONE){
+             //hide keyboard
+             hideKeyboard()
              getSuggestions(searchBar.text.toString())
              return@setOnEditorActionListener true
          }
@@ -172,12 +175,15 @@ class SearchFragment : Fragment() ,OnPlaceSelected{
     }
 
     override fun onSelected(place: PlaceResult) {
+        hideKeyboard()
         Log.d(TAG, "onSelected: ")
         var location=place.getGeometry()!!.getLocation()
 
         var bundle=Bundle()
         if(location!=null){
             bundle.putParcelable("SEARCH LOCATION",LatLng(location.getLat()!!,location.getLng()!!))
+            Log.d(TAG, "onSelected:------------------------------------------------ "+place.getName())
+            bundle.putString("SELECTED LOCATION NAME",place.getName())
         }
 
         Navigation.findNavController(activity!!, R.id.shopping_nav_host_fragment).navigate(R.id.action_navigation_search_to_navigation_home,bundle)

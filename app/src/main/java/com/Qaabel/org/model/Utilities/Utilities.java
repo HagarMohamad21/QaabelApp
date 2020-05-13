@@ -176,7 +176,7 @@ public class Utilities
     }
 
 
-    public static void LogOut(Activity activity)
+    public static void LogOut(Activity activity,boolean unvalidToken)
     {
         final Dialog dialog;
         dialog = new Dialog(activity, android.R.style.Theme_Dialog);
@@ -191,7 +191,12 @@ public class Utilities
          no.setVisibility(View.VISIBLE);
          blockBtn.setVisibility(View.GONE);
          cancelBtn.setVisibility(View.GONE);
-
+        TextView msg = dialog.findViewById(R.id.msg);
+         msg.setText("Are you sure you want to Log Out?");
+         if (unvalidToken){
+             msg.setText("You are logged out because you have logged in from another device");
+             yes.setText("Log in");
+         }
 
         yes.setOnClickListener(v -> {
             Intent intent = new Intent(activity, AccountActivity.class);
@@ -209,8 +214,6 @@ public class Utilities
 
         });
         no.setOnClickListener(view -> dialog.dismiss());
-        TextView msg = dialog.findViewById(R.id.msg);
-        msg.setText("Are you sure you want to Log Out?");
         dialog.show();
     }
 
@@ -263,61 +266,6 @@ public class Utilities
             else
             msg.setText("Are you sure you want to Block "+name+" ?");
         dialog.show();
-    }
-
-    public static void sendNotification(Activity activity, NotificationModel notify)
-    {
-        RemoteViews contentView = new RemoteViews(activity.getPackageName(), R.layout.custome_notification);
-        CircleImageView img = activity.findViewById(R.id.notify_img);
-//        Picasso.get().load(notify.getFriend().getImage()).into(img);
-        contentView.setImageViewUri(R.id.notify_img, Uri.parse(notify.getFriend().getImage()));
-        contentView.setTextViewText(R.id.notify_name, notify.getFriend().getName());
-        if (notify.getType().equals("Flash"))
-        {
-            contentView.setTextViewText(R.id.notify_event, notify.getFriend().getName() + " " + notify.getType() + " you");
-            contentView.setTextViewText(R.id.notify_action_one, "view profile ");
-            contentView.setTextViewText(R.id.notify_action_two, "Flash Back");
-//            contentView.setOnClickPendingIntent(R.id.notify_action_two, "Flash Back");
-//            contentView.setOnClickPendingIntent(R.id.notify_action_one, "Flash Back");
-
-
-        } else
-        {
-            contentView.setTextViewText(R.id.notify_event, notify.getFriend().getName() + " " + notify.getType() + " you");
-            contentView.setTextViewText(R.id.notify_action_one, "view profile ");
-            contentView.setTextViewText(R.id.notify_action_two, "Message you");
-
-        }
-        Intent intent = new Intent(activity, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        new SharedPref(activity).saveNotifivation(AppSharedPrefs.SHARED_PREF_Notification, notify);
-        NotificationCompat.Builder notificationBuilder = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-        {
-            notificationBuilder = new NotificationCompat.Builder(activity, activity.getString(R.string.notification_channel_id)).setSmallIcon(R.drawable.ic_logo).setAutoCancel(true).setContent(contentView).setPriority(NotificationCompat.PRIORITY_MAX);
-
-        }
-        NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            NotificationChannel channel = new NotificationChannel(activity.getString(R.string.notification_channel_id), CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription("notify");
-            channel.setShowBadge(true);
-            channel.canShowBadge();
-            channel.enableLights(true);
-            channel.setLightColor(Color.RED);
-            channel.enableVibration(true);
-
-            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
-
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        assert notificationManager != null;
-        notificationManager.notify(0, notificationBuilder.build());
-
-
     }
 
 

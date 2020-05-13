@@ -11,7 +11,7 @@ import com.Qaabel.org.model.entities.FriendModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_frien_block.view.*
 
-class BlocksAdapter(var context: Context,var blocks:List<FriendModel>) : RecyclerView.Adapter<BlocksAdapter.BlockHolder>() {
+class BlocksAdapter(var context: Context,var blocks:ArrayList<FriendModel>) : RecyclerView.Adapter<BlocksAdapter.BlockHolder>() {
     var unblockUserClicked:UnblockedUserClicked?=null
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): BlockHolder {
     val view=LayoutInflater.from(context).inflate(R.layout.card_frien_block,p0,false)
@@ -21,21 +21,18 @@ class BlocksAdapter(var context: Context,var blocks:List<FriendModel>) : Recycle
     override fun getItemCount()=blocks.size
 
     override fun onBindViewHolder(p0: BlockHolder, p1: Int) {
-     p0.bind(blocks[p1])
+     p0.bind(blocks[p1],p1)
     }
 
 
     inner class BlockHolder(var view: View) : RecyclerView.ViewHolder(view) {
-
-
-        fun bind(pos: FriendModel){
-            Picasso.get().load(pos.image).into(view.profile_img)
-            view.name.text=pos.name
+        fun bind(user: FriendModel,pos:Int){
+            Picasso.get().load(user.image).into(view.profile_img)
+            view.name.text=user.name
             view.unblock_user.setOnClickListener {
                  if(unblockUserClicked!=null)
-                     unblockUserClicked!!.OnClicked(pos)
+                     unblockUserClicked?.OnClicked(user,pos)
         }
-
         }
     }}
 

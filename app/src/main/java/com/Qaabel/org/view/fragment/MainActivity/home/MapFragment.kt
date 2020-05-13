@@ -61,6 +61,7 @@ import kotlin.collections.HashMap
 
 
 class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.OnMarkerClickListener,GoogleMap.OnMapClickListener{
+     var searchedText:String?=""
     val TAG = "MapFragment"
     var mGoogleMap: GoogleMap? = null
     var mapFragment: SupportMapFragment? = null
@@ -102,6 +103,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     var customMarker:CustomMarker?=null
     private lateinit var markerAnimation:MarkerAnimation
     private var firstTimeOpenMap=true
+
     companion object{
         var visible=false
     }
@@ -184,7 +186,6 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        currentUser!!.image
         visible=true
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity!!)
         nearUsersViewModel = ViewModelProviders.of(activity!!).get(NearUsersViewModel::class.java)
@@ -265,7 +266,10 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
             }
         }
         if(locationGrated&&isGpsOn&&bundle!=null){
-            bundleLocation=bundle!!.getParcelable("SEARCH LOCATION")
+            bundleLocation=bundle?.getParcelable("SEARCH LOCATION")
+            searchedText=bundle?.getString("SELECTED LOCATION NAME")
+            getUsersInSearchedLocation()
+            initAddressText()
             moveCamera(bundleLocation)
         }
     }
@@ -415,7 +419,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     private fun findDistanceBetweenCurrentLocationAndPlace(location: LatLng?): Float {
         val results = FloatArray(1)
         if(lastLocation!=null)
-            Location.distanceBetween(lastLocation!!.latitude,lastLocation!!.longitude,location!!.latitude,location.longitude,results)
+            Location.distanceBetween(lastLocation?.latitude!!,lastLocation?.longitude!!,location?.latitude!!,location.longitude,results)
         Log.d(TAG, "findDistanceBetweenCurrentLocationAndPlace: ---------------------------------------"+results[0])
         if(isGpsOn){
             if(results[0]>40f){
@@ -428,9 +432,16 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     }
 
     private fun initAddressText() {
-        val geocoder = Geocoder(activity!!, Locale.ENGLISH)
-        if (city_name!=null&&lastLocation!=null)
-            city_name?.text= LocationsHelper().getAdrress(lastLocation!!,geocoder)
+
+        if(searchedText!=""){
+            city_name?.text=searchedText
+        }
+        else{
+            val geocoder = Geocoder(activity!!, Locale.ENGLISH)
+            if (city_name!=null&&lastLocation!=null)
+                city_name?.text= LocationsHelper().getAdrress(lastLocation!!,geocoder)
+        }
+
 
     }
 
@@ -581,7 +592,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
                 if (apiNearUsersResponse != null) {
                     mUsers = apiNearUsersResponse.users
                     addNearUserToMap()
-                    available_num.text = mUsers!!.size.toString() + "  available"
+                    available_num.text = mUsers?.size.toString() + "  available"
                     NEAR_USER_AVAILABLE=true
                 }
             })
@@ -597,7 +608,7 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
         for(Place in places!!){
 
             var latLng=LatLng(Place?.getGeometry()?.getLocation()?.getLat()!!,Place?.getGeometry()?.getLocation()?.getLng()!!)
-            var marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
+            var marker= mGoogleMap?.addMarker(MarkerOptions().position(latLng)
                     .title(Place?.getName())
                     .icon(customMarker?.createPlaceMarker("",Place?.getNumberOfUsers()!!)))
         }
@@ -606,41 +617,38 @@ class MapFragment : Fragment() , OnMapReadyCallback ,OnLocationSent,GoogleMap.On
     private fun addNearUserToMap() {
         var latLng:LatLng
         var marker:Marker
-//        for(user in mUsers!!){
-//            Log.d(TAG, "addNearUserToMap: "+user.image)
-//            latLng= LatLng(user.location.coordinates[0],user.location.coordinates[1])
-//            if(findDistanceBetweenCurrentLocationAndPlace(latLng)>40){
-//                Log.d(TAG, "addNearUserToMap: SOME USER IS AWAY BY MORE THAN 10-------------${user.name}")
-//
-//                if(Common.USER_LOCATION!=null)
-//                    nearUsersViewModel?.nearPlaces(mtoken,lastLocation)?.observe(this, android.arch.lifecycle.Observer {
-//                        addPlacesToMap(it?.getPlaces())
-//                        if(it?.getPlaces()?.isEmpty()!!){
-//                            var marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
-//                                    .title(user.name)
-//                                    .icon(customMarker?.createPlaceMarker("",1)))
-//                        }
-//                    })
-//            }
-//
-//            else{
-//                var gender=user.sex
-//                var resourse=if(gender==0) { R.drawable.ic_bluemarker }
-//                else{R.drawable.ic_pinkmarker}
-//
-//                marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
-//                        .title(user.name)
-//                        .icon(customMarker?.createCustomMarker(null,resourse,false)))
-//                marker.tag=user
-//                markers[user.username] = marker
-//                if(user?.image!=defImage){
-//                    downloadMarkerImage.downloadImage(user?.username,user?.image,resourse)
-//                }
-//                else nearUsersProfiles[user?.username]=null
-//            }
-//
-//
-//        }
+        for(user in mUsers!!){
+            Log.d(TAG, "addNearUserToMap: "+user.image)
+            latLng= LatLng(user.location.coordinates[0],user.location.coordinates[1])
+            if(findDistanceBetweenCurrentLocationAndPlace(latLng)>40){
+                Log.d(TAG, "addNearUserToMap: SOME USER IS AWAY BY MORE THAN 10-------------${user.name}")
+
+                if(Common.USER_LOCATION!=null)
+                    nearUsersViewModel?.nearPlaces(mtoken,lastLocation)?.observe(this, android.arch.lifecycle.Observer {
+                        addPlacesToMap(it?.getPlaces())
+                        if(it?.getPlaces()?.isEmpty()!!){
+                            var marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
+                                    .title(user.name)
+                                    .icon(customMarker?.createPlaceMarker("",1)))
+                        }
+                    })
+            }
+
+            else{
+                var gender=user.sex
+                var resourse=if(gender==0) { R.drawable.ic_bluemarker }
+                else{R.drawable.ic_pinkmarker}
+
+                marker= mGoogleMap!!.addMarker(MarkerOptions().position(latLng)
+                        .title(user.name)
+                        .icon(customMarker?.createCustomMarker(null,resourse,false)))
+                marker.tag=user
+                markers[user.username] = marker
+                if(user?.image!=defImage){
+                    downloadMarkerImage.downloadImage(user?.username,user?.image,resourse)
+                }
+                else nearUsersProfiles[user?.username]=null
+            } }
     }
 
 

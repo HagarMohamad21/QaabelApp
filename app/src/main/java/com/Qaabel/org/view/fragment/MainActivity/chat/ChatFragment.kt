@@ -57,8 +57,6 @@ class ChatFragment : Fragment() {
     var adapter:MessagesAdapter?=null
     lateinit var mMessageReceiver:BroadcastReceiver
 
-    private lateinit var mSocket: Socket
-
     companion object{
         var visible=false
     }
@@ -235,8 +233,13 @@ class ChatFragment : Fragment() {
         mMessageReceiver=object: BroadcastReceiver(){
             override fun onReceive(context: Context?, intent: Intent?) {
                     val message:SocketModel= intent?.getParcelableExtra(Common.SERVICE_CHAT_MESSAGE) as SocketModel
-                    adapter?.addNewMessage(message.getMessage())
-                    chatlist.scrollToPosition(adapter?.itemCount!!-1)
+                    try{
+                        adapter?.addNewMessage(message.getMessage())
+                        chatlist?.scrollToPosition(adapter?.itemCount!!-1)
+                    }
+                    catch(e:Exception){
+                        Log.d(TAG, "onReceive: ${e.printStackTrace()}")
+                    }
 
             }
         }

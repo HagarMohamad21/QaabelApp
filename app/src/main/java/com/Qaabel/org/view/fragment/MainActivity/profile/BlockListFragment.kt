@@ -13,7 +13,6 @@ import android.widget.Toast
 import com.Qaabel.org.R
 import com.Qaabel.org.interfaces.OnBlockClicked
 import com.Qaabel.org.interfaces.UnblockedUserClicked
-import com.Qaabel.org.model.Api.Response.ApiLoginResponse
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs
 import com.Qaabel.org.model.SharedPref.SharedPref
 import com.Qaabel.org.model.Utilities.Utilities
@@ -50,29 +49,29 @@ class BlockListFragment : Fragment() {
     }
 
     private fun getBlocks() {
-        profileViewModel!!.getBlocks(token).observe(this, Observer {
+        profileViewModel?.getBlocks(token)?.observe(this, Observer {
             if(it!=null){
                 if(it.blocks.isNotEmpty()){
-                    populateList(it.blocks)
+                    populateList(it.blocks as ArrayList<FriendModel>)
                 }
             }
         })
     }
 
-    private fun populateList(blocks: List<FriendModel>) {
+    private fun populateList(blocks: ArrayList<FriendModel>) {
         val mLayoutManager = LinearLayoutManager(context)
         blocks_recycler.layoutManager = mLayoutManager
         blocks_recycler.itemAnimator = DefaultItemAnimator()
         blocksAdapter=BlocksAdapter(context!!,blocks)
-        blocksAdapter!!.unblockUserClicked=object:UnblockedUserClicked{
-            override fun OnClicked(user:FriendModel) {
+        blocksAdapter?.unblockUserClicked=object:UnblockedUserClicked{
+            override fun OnClicked(user:FriendModel,pos:Int) {
                 var ut=Utilities()
                 ut.blockDialog(activity,user.name,true,false)
                 ut.setOnBlockClicked(object :OnBlockClicked{
                     override fun onBlockClicked() {
                     }
                     override fun onUnBlockClicked() {
-                        unblockUser(user)
+                        unblockUser(user,pos)
                     }
                 })
             }
@@ -80,18 +79,21 @@ class BlockListFragment : Fragment() {
         blocks_recycler.adapter=blocksAdapter
     }
 
-    private fun unblockUser(user: FriendModel) {
-        profileViewModel!!.UnblockUser(token,user.id).observe(this, Observer {
+    private fun unblockUser(user: FriendModel, pos: Int) {
+        profileViewModel?.UnblockUser(token,user.id)?.observe(this, Observer {
             if (it != null) {
                 if (it.getStatus() == 200) {
                     Toast.makeText(context, "User unblocked", Toast.LENGTH_SHORT).show()
+                    blocksAdapter?.blocks?.remove(user)
+                    blocksAdapter?.notifyItemRemoved(pos)
+
                 }
             }
         })
     }
 
     private fun setupListeners() {
-        back_img.setOnClickListener { fragmentManager!!.popBackStack() }
+        back_img.setOnClickListener { fragmentManager?.popBackStack() }
 
     }
 

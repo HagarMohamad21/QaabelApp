@@ -10,6 +10,7 @@ import com.Qaabel.org.model.Api.Response.ApiNearUsersResponse;
 import com.Qaabel.org.model.Api.Response.ApiSignUpResponse;
 import com.Qaabel.org.model.Api.Response.MessageApiResponse;
 import com.Qaabel.org.model.Api.Response.UserChatResponse;
+import com.Qaabel.org.model.Api.Response.UsersInPlaceResponse;
 import com.Qaabel.org.model.Utilities.Utilities;
 import com.Qaabel.org.model.entities.Active;
 import com.Qaabel.org.model.entities.ChatModel;
@@ -186,6 +187,10 @@ public interface Service
      @Headers({"Accept: application/json"})
     @POST("/user/getnearplaces")
     Call<ApiNearPlacesResponse> getNearPlaces(@Header("authToken") String token,@Body UserModel userModel);
+
+ @Headers({"Accept: application/json"})
+    @POST("/user/getusersinplace")
+    Call<UsersInPlaceResponse> getUsersInPlace(@Header("authToken") String token, @Body UserModel userModel);
 
 
 

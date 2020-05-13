@@ -128,12 +128,13 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
         chatsAdapter.notifyDataSetChanged();
     }
 
-
+    private static final String TAG = "MessagesFragment";
     private void getChats(String token)
     {
         profileViewModel.getChats(token).observe(this, apiChatResponse -> {
             if (apiChatResponse != null)
             {
+
                 if (apiChatResponse.getChats().size() > 0){
                    populateList(apiChatResponse.getChats());
                 }
@@ -150,11 +151,13 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
         List<LastChatModel> chatsWithoutFlashesMessages=new ArrayList<>();
         recyclerView.setVisibility(View.VISIBLE);
         noMessagesLayout.setVisibility(View.GONE);
+
         for (LastChatModel chat :chats){
             if(chat.getChat().getLast()!=null)
             chatsWithoutFlashesMessages.add(chat);
         }
-        chatsAdapter.setChatList((ArrayList<LastChatModel>) chatsWithoutFlashesMessages);
+        chatsAdapter.setChatList((ArrayList<LastChatModel>) chats);
+
         if(chatsWithoutFlashesMessages.isEmpty()){
             recyclerView.setVisibility(View.GONE);
             noMessagesLayout.setVisibility(View.VISIBLE);
@@ -202,7 +205,7 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
         super.onDetach();
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+    ItemTouchHelper.SimpleCallback simpleCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
             return false;
@@ -221,6 +224,7 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
                   break;
               }
               case ItemTouchHelper.RIGHT:{
+                  makeMessageUnread();
                   break;
               }
           }
@@ -233,13 +237,17 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                     .addSwipeLeftBackgroundColor(ContextCompat.getColor(getContext(), R.color.detetRed))
                     .addSwipeLeftActionIcon(R.drawable.ic_delete)
-//                    .addSwipeRightBackgroundColor(ContextCompat.getColor(getContext(), R.color.blue))
-//                    .addSwipeRightActionIcon(R.drawable.ic_unread)
+                    .addSwipeRightBackgroundColor(ContextCompat.getColor(getContext(), R.color.blue))
+                    .addSwipeRightActionIcon(R.drawable.ic_unread)
                     .create()
                     .decorate();
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
         }
     };
+
+    private void makeMessageUnread() {
+
+    }
 
     private void deleteChat(String id,int pos) {
         profileViewModel.deleteMessage(token,id).observe(this,activeResponse ->{
@@ -247,6 +255,10 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
                 if(activeResponse.getMessage().equals("chat deleted")){
                     chatsAdapter.getChats().remove(pos);
                     chatsAdapter.notifyItemRemoved(pos);
+                }
+                if(chatsAdapter.getChats().size()==0){
+                    recyclerView.setVisibility(View.GONE);
+                    noMessagesLayout.setVisibility(View.VISIBLE);
                 }
 
             }

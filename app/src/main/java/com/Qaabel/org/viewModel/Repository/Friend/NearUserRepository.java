@@ -9,6 +9,7 @@ import com.Qaabel.org.model.Api.Response.ActiveResponse;
 import com.Qaabel.org.model.Api.Response.ApiNearPlacesResponse;
 import com.Qaabel.org.model.Api.Response.ApiNearUsersResponse;
 
+import com.Qaabel.org.model.Api.Response.UsersInPlaceResponse;
 import com.Qaabel.org.model.Api.Service;
 import com.Qaabel.org.model.entities.Active;
 import com.Qaabel.org.model.entities.UserModel;
@@ -94,4 +95,24 @@ public class NearUserRepository
 
         return data;
     }
+
+    public LiveData<UsersInPlaceResponse> getUsersInPlace(String token, Location location) {
+        UserModel userLocation=new UserModel(location);
+        final MutableLiveData<UsersInPlaceResponse> data = new MutableLiveData<>();
+        Service.Fetcher.getInstance().getUsersInPlace(token,userLocation).enqueue(new Callback<UsersInPlaceResponse>() {
+            @Override
+            public void onResponse(Call<UsersInPlaceResponse> call, Response<UsersInPlaceResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UsersInPlaceResponse> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+
 }
