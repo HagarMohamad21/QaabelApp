@@ -31,7 +31,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         if (viewHolder != null) {
-//            final View foregroundView = ((NotificationsAdapter.ViewHolder) viewHolder).itemView;
+//            final View foregroundView = ((NotificationsAdapter.ChatViewHolder) viewHolder).itemView;
 //
 //            getDefaultUIUtil().onSelected(foregroundView);
         }
@@ -41,14 +41,14 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
                                 RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                 int actionState, boolean isCurrentlyActive) {
-//        final View foregroundView = ((NotificationsAdapter.ViewHolder) viewHolder).itemView;
+//        final View foregroundView = ((NotificationsAdapter.ChatViewHolder) viewHolder).itemView;
 //        getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
 //                actionState, isCurrentlyActive);
     }
 
     @Override
     public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-//        final View foregroundView = ((NotificationsAdapter.ViewHolder) viewHolder).itemView;
+//        final View foregroundView = ((NotificationsAdapter.ChatViewHolder) viewHolder).itemView;
 //        getDefaultUIUtil().clearView(foregroundView);
     }
 
@@ -56,14 +56,14 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     public void onChildDraw(Canvas c, RecyclerView recyclerView,
                             RecyclerView.ViewHolder viewHolder, float dX, float dY,
                             int actionState, boolean isCurrentlyActive) {
-//        final View foregroundView = ((NotificationsAdapter.ViewHolder) viewHolder).itemView;
+//        final View foregroundView = ((NotificationsAdapter.ChatViewHolder) viewHolder).itemView;
 //
 //        getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
 //                actionState, isCurrentlyActive);
     }
 
 //    @Override
-//    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//    public void onSwiped(RecyclerView.ChatViewHolder viewHolder, int direction) {
 //        listener.onSwiped(viewHolder, direction, viewHolder.getAdapterPosition());
 //    }
 
@@ -73,6 +73,6 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     }
 
     public interface RecyclerItemTouchHelperListener {
-       // void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position);
+       // void onSwiped(RecyclerView.ChatViewHolder viewHolder, int direction, int position);
     }
 }

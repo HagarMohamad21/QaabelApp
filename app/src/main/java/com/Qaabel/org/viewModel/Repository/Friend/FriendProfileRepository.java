@@ -13,6 +13,7 @@ import com.Qaabel.org.model.Api.Response.UserChatResponse;
 import com.Qaabel.org.model.Api.Service;
 import com.Qaabel.org.model.Utilities.Utilities;
 import com.Qaabel.org.model.entities.ChatModel;
+import com.Qaabel.org.model.entities.ChatReadModel;
 import com.Qaabel.org.model.entities.FriendId;
 import com.Qaabel.org.model.entities.FriendModel;
 import com.Qaabel.org.model.entities.MessageModel;
@@ -459,7 +460,7 @@ public class FriendProfileRepository
     }
 
     public MutableLiveData<MessageApiResponse> sendMessage(String token, SentMessageModel messageModel)
-    {
+   {
         final MutableLiveData<MessageApiResponse> data = new MutableLiveData<>();
         Service.Fetcher.getInstance().sendMessage(token,messageModel).enqueue(new Callback<MessageApiResponse>()
         {
@@ -486,6 +487,38 @@ public class FriendProfileRepository
 
         return data;
     }
+
+    public MutableLiveData<ActiveResponse> MakeRead(String token, ChatReadModel chatReadModel)
+    {
+        final MutableLiveData<ActiveResponse> data = new MutableLiveData<>();
+        Service.Fetcher.getInstance().makeRead(token,chatReadModel).enqueue(new Callback<ActiveResponse>()
+        {
+            @Override
+            public void onResponse(Call<ActiveResponse> call, Response<ActiveResponse> response)
+            {
+                Log.d(TAG, "onResponse: -----------------------"+response.body());
+                if (response.body() != null)
+                {
+
+                    data.setValue(response.body());
+                } else
+                {
+                    data.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ActiveResponse> call, Throwable t)
+            {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+
+
 
     public LiveData<UserChatResponse> getUserChat(String token, String userId){
          FriendId friendId=new FriendId();

@@ -218,7 +218,7 @@ public class Utilities
     }
 
 
-    public  void blockDialog(Activity activity, String name, boolean unblock,boolean delete)
+    public  void generalUseDialog(Activity activity, String name, boolean unblock, boolean delete)
     {
         final Dialog dialog;
         dialog = new Dialog(activity, android.R.style.Theme_Dialog);

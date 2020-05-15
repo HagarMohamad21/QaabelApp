@@ -14,6 +14,7 @@ import com.Qaabel.org.model.Api.Response.UsersInPlaceResponse;
 import com.Qaabel.org.model.Utilities.Utilities;
 import com.Qaabel.org.model.entities.Active;
 import com.Qaabel.org.model.entities.ChatModel;
+import com.Qaabel.org.model.entities.ChatReadModel;
 import com.Qaabel.org.model.entities.FriendId;
 import com.Qaabel.org.model.entities.FriendModel;
 import com.Qaabel.org.model.entities.MessageModel;
@@ -191,6 +192,11 @@ public interface Service
  @Headers({"Accept: application/json"})
     @POST("/user/getusersinplace")
     Call<UsersInPlaceResponse> getUsersInPlace(@Header("authToken") String token, @Body UserModel userModel);
+
+    @Headers({"Accept: application/json"})
+    @POST("/chat/markReaded")
+    Call<ActiveResponse> makeRead(@Header("authToken") String token, @Body ChatReadModel chatReadModel);
+
 
 
 

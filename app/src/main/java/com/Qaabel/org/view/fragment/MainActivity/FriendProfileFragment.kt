@@ -81,7 +81,7 @@ class FriendProfileFragment : Fragment(), OnBlockClicked {
         blockBtn.setOnClickListener {
             //block user dialog
             var utils=Utilities()
-           utils.blockDialog(activity, friendUser?.name, false,false)
+           utils.generalUseDialog(activity, friendUser?.name, false,false)
             utils.setOnBlockClicked(this)
         }
         back_img.setOnClickListener {

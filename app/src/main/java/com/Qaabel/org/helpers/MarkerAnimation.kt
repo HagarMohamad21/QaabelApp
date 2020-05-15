@@ -2,6 +2,7 @@ package com.Qaabel.org.helpers
 
 import android.animation.ValueAnimator
 import android.widget.Toast
+import com.Qaabel.org.helpers.mapHelper.moveCamera
 import com.Qaabel.org.view.fragment.MainActivity.home.MapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker

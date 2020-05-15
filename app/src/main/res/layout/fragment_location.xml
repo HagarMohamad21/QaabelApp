@@ -121,6 +121,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"
+            android:text="llll"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,7 +136,7 @@
             android:visibility="gone"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
-            android:text=""
+            android:text="hhhhh"
             android:paddingBottom="5dp"
             android:textColor="@color/black"
             android:textSize="14sp"

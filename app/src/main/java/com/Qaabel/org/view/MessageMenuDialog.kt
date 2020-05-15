@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.message_menu.*
 
 class MessageMenuDialog(var cxt:Context) :Dialog(cxt) {
     var dialogItemClicked:DialogItemClicked?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.requestFeature(Window.FEATURE_NO_TITLE);

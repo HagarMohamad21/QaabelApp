@@ -14,6 +14,7 @@ import com.Qaabel.org.model.Api.Response.ApiLoginResponse;
 import com.Qaabel.org.model.Api.Response.MessageApiResponse;
 import com.Qaabel.org.model.Api.Response.UserChatResponse;
 import com.Qaabel.org.model.entities.ChatModel;
+import com.Qaabel.org.model.entities.ChatReadModel;
 import com.Qaabel.org.model.entities.FriendModel;
 import com.Qaabel.org.model.entities.MessageModel;
 import com.Qaabel.org.model.entities.SentMessageModel;
@@ -114,6 +115,14 @@ public class FriendProfileViewModel extends AndroidViewModel
 
     }
 
+    public MutableLiveData<ActiveResponse> makeUnRead(String token, ChatReadModel chatReadModel)
+    {
+        return friendProfileRepository.MakeRead(token,chatReadModel);
+
+    }
+
+
+
     public MutableLiveData<ActiveResponse> deleteMessage(String token,String chatId){
         return friendProfileRepository.deleteMessage(token,chatId);
     }
@@ -122,7 +131,6 @@ public class FriendProfileViewModel extends AndroidViewModel
         return friendProfileRepository.getUserChat(token,id);
 
     }
-
 
 
 }

@@ -31,13 +31,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
-public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>
+public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>
 {
 
     ArrayList<LastChatModel> chats = new ArrayList<>();
@@ -50,13 +49,14 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>
 
     MessagesFragment fragment;
 
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public class ChatViewHolder extends RecyclerView.ViewHolder
     {
-        CircleImageView profileImg;
-        TextView name_et, lastMessageTxt, date_et,unreadTxt;
+        public CircleImageView profileImg;
+       public TextView name_et, lastMessageTxt, date_et,unreadTxt;
         ConstraintLayout chatLayout;
         ImageView seenImage;
-        public ViewHolder(View view)
+
+        public ChatViewHolder(View view)
         {
             super(view);
             seenImage=view.findViewById(R.id.seenImage);
@@ -84,46 +84,49 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_card, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
+        ChatViewHolder vh = new ChatViewHolder(v);
         return vh;
     }
 
     private static final String TAG = "ChatsAdapter";
     @SuppressLint("CheckResult")
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position)
+    public void onBindViewHolder(@NonNull final ChatViewHolder holder, final int position)
     {
        selected=false;
        if(!mView.isInActionMode){
            holder.chatLayout.setTag(null);
            holder.chatLayout.setBackgroundColor(ContextCompat.getColor(mView.getContext(),R.color.white));
-
        }
        if(mView.isSelectAll){
            Log.d(TAG, "onBindViewHolder: -----------------------IS SELECT ALL------------------------");
            holder.chatLayout.setBackgroundColor(ContextCompat.getColor(holder.chatLayout.getContext(),R.color.selectedChat));
            holder.chatLayout.setTag("SELECTED");
-           mView.deletedList.add(chats.get(position));
+           mView.messagesList.add(chats.get(position));
        }
         holder.name_et.setText(chats.get(position).getUser().getName());
         if(chats.get(position).getChat().getLast()!=null){
             Log.d(TAG, "onBindViewHolder: -----------------------------------"+chats.get(position).getChat().getLast().getTime());
             holder.lastMessageTxt.setText(chats.get(position).getChat().getLast().getMessage());
            holder.date_et.setText(new TimeUtils().getFormattedDate(chats.get(position).getChat().getLast().getTime()));
-           if(chats.get(position).getUnread()>0){
+           if(chats.get(position).getUnread()>0||mView.MessageUnRead){
                holder.unreadTxt.setVisibility(View.VISIBLE);
-               holder.unreadTxt.setText(String.valueOf(chats.get(position).getUnread()));
+               holder.unreadTxt.setText(String.valueOf(mView.MessageUnRead?1:chats.get(position).getUnread()));
                holder.date_et.setTextColor(ContextCompat.getColor(mView.getContext(),R.color.blue));
            }
 
            if(chats.get(position).getChat().getLast().getSender()==currentUser.get_id()){
+
                if(!chats.get(position).getChat().getLast().getSeenby().get(0).equals(currentUser.get_id())){
-                   Log.d(TAG, "onBindViewHolder: ---SEEN SHOULD BE VISIBLE---------------------------------------"+currentUser.get_id());
-                   Log.d(TAG, "onBindViewHolder: ---SEEN SHOULD BE VISIBLE---------------------------------------"+chats.get(position).getChat().getLast().getSeenby());
+                   Log.d(TAG, "onBindViewHolder: ---SEEN SHOULD BE VISIBLE---------------------" +
+                           "------------------"+currentUser.get_id());
+                   Log.d(TAG, "onBindViewHolder: ---SEEN SHOULD BE VISIBLE--------------------" +
+                           "-------------------"+chats.get(position).getChat().getLast().getSeenby());
+
                    holder.seenImage.setVisibility(View.VISIBLE);
                }
            }
@@ -136,14 +139,14 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>
                          mView.isSelectAll=false;
                          notifyDataSetChanged();
                          if(holder.chatLayout.getTag()!=null&&(holder.chatLayout.getTag().equals("SELECTED"))){
-                             mView.deletedList.remove(chats.get(position));
+                             mView.messagesList.remove(chats.get(position));
                         holder.chatLayout.setTag(null);
                        onMessageLongClick.onLongClick(false);
                        holder.chatLayout.setBackgroundColor(ContextCompat.getColor(holder.chatLayout.getContext(),R.color.white));
                    }
 
                       else{
-                             mView.deletedList.add(chats.get(position));
+                             mView.messagesList.add(chats.get(position));
                              holder.chatLayout.setBackgroundColor(ContextCompat.getColor(holder.chatLayout.getContext(),R.color.selectedChat));
                              onMessageLongClick.onLongClick(true);
                              holder.chatLayout.setTag("SELECTED");
@@ -161,7 +164,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder>
                holder.chatLayout.setBackgroundColor(ContextCompat.getColor(holder.chatLayout.getContext(),R.color.selectedChat));
                onMessageLongClick.onLongClick(true);
                holder.chatLayout.setTag("SELECTED");
-               mView.deletedList.add(chats.get(position));
+               mView.messagesList.add(chats.get(position));
                return true;
            }
            else return false;

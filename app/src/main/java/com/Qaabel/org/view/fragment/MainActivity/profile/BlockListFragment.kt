@@ -66,7 +66,7 @@ class BlockListFragment : Fragment() {
         blocksAdapter?.unblockUserClicked=object:UnblockedUserClicked{
             override fun OnClicked(user:FriendModel,pos:Int) {
                 var ut=Utilities()
-                ut.blockDialog(activity,user.name,true,false)
+                ut.generalUseDialog(activity,user.name,true,false)
                 ut.setOnBlockClicked(object :OnBlockClicked{
                     override fun onBlockClicked() {
                     }

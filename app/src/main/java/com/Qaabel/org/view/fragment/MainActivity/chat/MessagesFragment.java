@@ -3,8 +3,6 @@ package com.Qaabel.org.view.fragment.MainActivity.chat;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,13 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.Qaabel.org.R;
 import com.Qaabel.org.interfaces.DialogItemClicked;
@@ -35,12 +32,11 @@ import com.Qaabel.org.interfaces.OnMessageLongClick;
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs;
 import com.Qaabel.org.model.SharedPref.SharedPref;
 import com.Qaabel.org.model.Utilities.Utilities;
-import com.Qaabel.org.model.entities.ChatModel;
+import com.Qaabel.org.model.entities.ChatReadModel;
 import com.Qaabel.org.model.entities.LastChatModel;
 import com.Qaabel.org.model.entities.UserModel;
 import com.Qaabel.org.view.ItemDecoration;
 import com.Qaabel.org.view.MessageMenuDialog;
-import com.Qaabel.org.view.activity.MainActivity;
 import com.Qaabel.org.view.adapter.Recycler.ChatsAdapter;
 import com.Qaabel.org.viewModel.viewModel.friend.FriendProfileViewModel;
 
@@ -61,14 +57,13 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
    ImageView menuIcon,deleteIcon;
    TextView messageNumTxt;
    LinearLayout noMessagesLayout;
+   ProgressBar chatProgressBar;
     private int selectedMessagesCount=0;
     public boolean isInActionMode=false,isSelectAll=false;
     String token;
-   public List<LastChatModel> deletedList=new ArrayList<>();
+   public List<LastChatModel> messagesList=new ArrayList<>();
     View view;
-
-    private DialogInterface.OnDismissListener onDismissListener;
-
+  public boolean MessageUnRead=false;
 
   @Override
     public void onCreate(Bundle savedInstanceState)
@@ -107,13 +102,13 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
         @Override
         public void onClick(View v) {
             clearActionMenu();
-            deletedList.clear();
+            messagesList.clear();
         }
     });
     deleteIcon.setOnClickListener(v -> {
         Utilities utils=new Utilities();
         utils.setOnBlockClicked(this);
-        utils.blockDialog(getActivity(),"",false,true);
+        utils.generalUseDialog(getActivity(),"",false,true);
 
     });
     }
@@ -166,6 +161,7 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
 
     private void init(View view)
     {
+        chatProgressBar=view.findViewById(R.id.chatProgressBar);
         currentUser=new SharedPref(getContext()).getUser(AppSharedPrefs.SHARED_PREF_lOGIN_USER);
         recyclerView = view.findViewById(R.id.message_recycler);
         noMessagesLayout=view.findViewById(R.id.noMessagesLayout);
@@ -214,17 +210,18 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int pos=viewHolder.getAdapterPosition();
+           LastChatModel lastChatModel= chatsAdapter.getChats().get(pos);
           switch(direction){
               case ItemTouchHelper.LEFT:{
                   if(chatsAdapter!=null){
-                      deleteChat(chatsAdapter.getChats().get(pos).getChat().getId(),pos);
+                      deleteChat(lastChatModel.getChat().getId(),pos);
 
                   }
 
                   break;
               }
               case ItemTouchHelper.RIGHT:{
-                  makeMessageUnread();
+                  makeMessageUnread(lastChatModel.getChat().getId(),viewHolder);
                   break;
               }
           }
@@ -245,11 +242,27 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
         }
     };
 
-    private void makeMessageUnread() {
+    private void makeMessageUnread(String chatId, RecyclerView.ViewHolder viewHolder) {
+        int pos=viewHolder.getAdapterPosition();
+        ChatReadModel chatReadModel=new ChatReadModel(chatId,1);
+        profileViewModel.makeUnRead(token,chatReadModel).observe(this,it -> {
+            Log.d(TAG, "makeMessageUnread: -------------------------------"+it.getMessage());
+            if(it.getMessage().equals("marked")){
+              LastChatModel lastChatModel=chatsAdapter.getChats().get(pos);
+              chatsAdapter.getChats().remove(pos);
+              chatsAdapter.getChats().add(pos,lastChatModel);
+//                ((ChatsAdapter.ChatViewHolder)viewHolder).unreadTxt.setVisibility(View.VISIBLE);
+//                ((ChatsAdapter.ChatViewHolder)viewHolder).unreadTxt.setText(String.valueOf(1));
+//                ((ChatsAdapter.ChatViewHolder)viewHolder).date_et.setTextColor(ContextCompat.getColor(getContext(),R.color.blue));
+                MessageUnRead=true;
+              chatsAdapter.notifyDataSetChanged();
+            }
 
+        });
     }
 
     private void deleteChat(String id,int pos) {
+
         profileViewModel.deleteMessage(token,id).observe(this,activeResponse ->{
             if(activeResponse!=null){
                 if(activeResponse.getMessage().equals("chat deleted")){
@@ -299,12 +312,40 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
     }
 
     private void deleteSelectedList() {
-       for(LastChatModel chat:deletedList){
+        chatProgressBar.setVisibility(View.VISIBLE);
+       for(LastChatModel chat:messagesList){
            chatsAdapter.getChats().remove(chat);
+           profileViewModel.deleteMessage(token,chat.getChat().getId()).observe(this,it->{
+              if(it!=null){
+                  if(it.getMessage().equals("chat deleted")){
+                      chatsAdapter.getChats().remove(chat);
+                      recyclerView.setVisibility(View.GONE);
+                      noMessagesLayout.setVisibility(View.VISIBLE);
+                  }}
+           });
        }
+       chatProgressBar.setVisibility(View.GONE);
        chatsAdapter.notifyDataSetChanged();
-        deletedList.clear();
+        messagesList.clear();
 
+    }
+
+    private void makeSelectedListUnRead(){
+        chatProgressBar.setVisibility(View.VISIBLE);
+        for(LastChatModel lastChatModel:messagesList){
+
+            ChatReadModel chatReadModel=new ChatReadModel(lastChatModel.getChat().getId(),1);
+            profileViewModel.makeUnRead(token,chatReadModel).observe(this,it->{
+                if(it!=null){
+                    if(it.getMessage().equals("marked"))
+                    { MessageUnRead=true;
+                    }
+                }
+            });
+        }
+        chatsAdapter.notifyDataSetChanged();
+        chatProgressBar.setVisibility(View.GONE);
+        messagesList.clear();
     }
 
     @Override
@@ -326,6 +367,10 @@ public class MessagesFragment extends Fragment implements OnMessageLongClick, On
              messageNumTxt.setText(String.valueOf(selectedMessagesCount));
          }
 
+        }
+
+        if(item.equals("MARK UNREAD")){
+        makeSelectedListUnRead();
         }
     }
 }

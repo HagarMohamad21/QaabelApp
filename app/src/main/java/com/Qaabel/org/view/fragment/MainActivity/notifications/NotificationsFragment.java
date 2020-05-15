@@ -194,7 +194,7 @@ public class NotificationsFragment extends Fragment implements RecyclerItemTouch
     }
 
 //    @Override
-//    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position)
+//    public void onSwiped(RecyclerView.ChatViewHolder viewHolder, int direction, int position)
 //    {
 //        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
 //    }

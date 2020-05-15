@@ -453,14 +453,17 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
         }
         else
         {
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},STORAGE_PERMISSION);
+           requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA}
+                   ,STORAGE_PERMISSION);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode==STORAGE_PERMISSION){
+
             if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+
                showDialog();
             }
         }

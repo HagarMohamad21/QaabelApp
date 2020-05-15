@@ -305,7 +305,7 @@ public class CompeleteFragment extends DialogFragment implements ImageDialog.Ima
         }
         else
         {
-           ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},STORAGE_PERMISSION);
+         requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},STORAGE_PERMISSION);
         }
     }
 
