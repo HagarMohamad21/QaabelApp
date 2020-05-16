@@ -107,7 +107,6 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout4" />
-
         <TextView
             android:id="@+id/city_name"
             android:layout_width="120dp"
@@ -121,10 +120,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="gone"
-            android:text="llll"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/available_num"
             android:layout_width="110dp"
@@ -136,7 +133,6 @@
             android:visibility="gone"
             android:paddingStart="20dp"
             android:paddingTop="5dp"
-            android:text="hhhhh"
             android:paddingBottom="5dp"
             android:textColor="@color/black"
             android:textSize="14sp"

@@ -3,6 +3,7 @@ package com.Qaabel.org.helpers.mapHelper
 import android.location.Location
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.Qaabel.org.helpers.Common
 import com.Qaabel.org.view.fragment.MainActivity.home.MapFragment
 import com.google.android.gms.location.LocationCallback
@@ -37,8 +38,12 @@ import kotlinx.android.synthetic.main.fragment_location.*
 }
 
  fun MapFragment.getDeviceLocation() {
+
+
     fusedLocationProviderClient?.lastLocation?.addOnCompleteListener(OnCompleteListener {
+
         if (it.isSuccessful) {
+            GotDeviceLocation=true
             lastLocation = it.result
             Common.USER_LOCATION =lastLocation
 
@@ -55,6 +60,7 @@ import kotlinx.android.synthetic.main.fragment_location.*
 
 
  fun MapFragment.buildLocationCallback() {
+
 
     Log.d(TAG, "buildLocationCallback: --------------------------------------------------------")
     locationCallback= object : LocationCallback(){

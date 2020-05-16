@@ -68,7 +68,7 @@ fun MapFragment.addUsersInThatPlaceToMap(it: UsersInPlaceResponse?, pos: LatLng,
     available_num.text="${it?.numbers} available"
     if(it?.numbers!!>0){
         if(it?.users.isNullOrEmpty()){
-            var marker= mGoogleMap?.addMarker(MarkerOptions().position(pos)
+        placeMarker= mGoogleMap?.addMarker(MarkerOptions().position(pos)
                     .title(searchedText)
                     .icon(customMarker?.createPlaceMarker("", it.numbers)))
 
@@ -88,7 +88,7 @@ fun MapFragment.addPlacesToMap(places: List<NearPlace?>?) {
     for(Place in places!!){
         var numberOfUsers=Place?.getNumberOfUsers()
         var latLng= LatLng(Place?.getGeometry()?.getLocation()?.getLat()!!,Place?.getGeometry()?.getLocation()?.getLng()!!)
-        var marker= mGoogleMap?.addMarker(MarkerOptions().position(latLng)
+        placeMarker= mGoogleMap?.addMarker(MarkerOptions().position(latLng)
                 .title(Place?.getName())
                 .icon(customMarker?.createPlaceMarker("",numberOfUsers!!)))
 

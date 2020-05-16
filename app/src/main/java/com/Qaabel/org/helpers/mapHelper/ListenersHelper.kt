@@ -15,10 +15,15 @@ import kotlinx.android.synthetic.main.fragment_location.*
     }
     locationTxtView.setOnClickListener { startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
     currentLocationBtn.setOnClickListener {
+        currentUserMarker?.isVisible=true
+        for ( marker in markers.values){
+            marker?.isVisible=true
+        }
         currentLocationBtnClicked = true
         warningImg.visibility = View.GONE
         warningTxt.visibility = View.GONE
         city_name.text=userCity
+        if(nearUsersNum!=-1)
         available_num.text = "${nearUsersNum} available"
         bundleLocation = null
         searchedText=""

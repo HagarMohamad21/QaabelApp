@@ -100,7 +100,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
     var fromSearch = false
     var userCity:String?="Current Location"
     var nearUsersNum=-1
-
+    var GotDeviceLocation=false
+    var placeMarker:Marker?=null
     companion object {
         var visible = false
     }
@@ -142,8 +143,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
     override fun onStart() {
         super.onStart()
         activity?.registerReceiver(mGpsSwitchStateReceiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
-        LocalBroadcastManager.getInstance(context!!).registerReceiver(
-                mMessageReceiver, IntentFilter(Common.NEW_FLASH_FILTER))
+        LocalBroadcastManager.getInstance(context!!).registerReceiver(mMessageReceiver, IntentFilter(Common.NEW_FLASH_FILTER))
 
 
 
@@ -160,6 +160,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
 
     override fun onStop() {
         super.onStop()
+        NEAR_USER_AVAILABLE=false
         activity?.unregisterReceiver(mGpsSwitchStateReceiver)
         LocalBroadcastManager.getInstance(context!!).unregisterReceiver(mMessageReceiver)
         try {
@@ -204,6 +205,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
         setListeners()
         infoWindowListener = InfoWindowListener()
         popupRootView.viewTreeObserver.addOnGlobalLayoutListener(infoWindowListener)
+        if(!GotDeviceLocation)
+            getDeviceLocation()
 
     }
 
@@ -225,22 +228,20 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
         mGoogleMap = p0
         mGoogleMap?.setOnMarkerClickListener(this)
         mGoogleMap?.setOnMapClickListener(this)
+        mGoogleMap?.setOnCameraChangeListener { newPosition ->
+
+            if (newPosition.zoom < HIDING_ZOOM) {
+               currentUserMarker?.isVisible=false
+                placeMarker?.isVisible=false
+                for ( marker in markers.values){
+                    marker?.isVisible=false
+                }
+            }
+        }
         if (locationGrated && isGpsOn && !NEAR_USER_AVAILABLE) {
             getDeviceLocation()
             getNearUsers()
             NEAR_USER_AVAILABLE = true
-            mGoogleMap?.setOnCameraChangeListener { newPosition ->
-                if (newPosition.zoom < HIDING_ZOOM) {
-                } else if (newPosition.zoom >= SHOWING_ZOOM) {
-                    if (mUsers != null) {
-                        if (currentUserMarker != null) {
-                            currentUserMarker?.isVisible = true
-                        }
-                    }
-
-
-                }
-            }
         }
         fromSearch = bundle != null
         if (locationGrated && isGpsOn && bundle != null) {

@@ -20,7 +20,7 @@ class MarkerAnimation(var latLngInterpolator: LatLngInterpolator,var mapFragment
             val v = animation.animatedFraction
             val newPosition = latLngInterpolator.interpolate(v, startPosition!!, endPosition)
             marker.position = newPosition!!
-            mapFragment?.moveCamera(null,computeHeading(startPosition,endPosition))
+            mapFragment.moveCamera(null,computeHeading(startPosition,endPosition))
         }
         valueAnimator.setFloatValues(0f, 1f) // Ignored.
         valueAnimator.duration = 3000

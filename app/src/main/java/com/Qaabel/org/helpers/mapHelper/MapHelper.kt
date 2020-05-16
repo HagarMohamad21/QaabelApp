@@ -3,6 +3,7 @@ package com.Qaabel.org.helpers.mapHelper
 import android.location.Geocoder
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.Qaabel.org.R
 import com.Qaabel.org.helpers.LocationsHelper
 import com.Qaabel.org.view.fragment.MainActivity.home.MapFragment
@@ -79,14 +80,17 @@ fun MapFragment.moveCamera(location: LatLng?, bearing: Double = 0.0) {
 
     if (searchedText != "") {
         city_name?.text = searchedText
-    } else {
-        val geocoder = Geocoder(activity!!, Locale.ENGLISH)
+    }
+    else {
+       activity?.apply {
+           val geocoder = Geocoder(activity, Locale.ENGLISH)
 
-        if (city_name != null && lastLocation != null){
-            userCity=LocationsHelper().getAdrress(lastLocation!!, geocoder)
+           if (city_name != null && lastLocation != null){
+               userCity=LocationsHelper().getAdrress(lastLocation!!, geocoder)
 
-        }
-        city_name?.text = userCity
+           }
+           city_name?.text = userCity
+       }
 
 
     }
