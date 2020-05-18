@@ -51,6 +51,7 @@ fun MapFragment.moveCamera(location: LatLng?, bearing: Double = 0.0) {
                         .position(lastLocationLatLang))
                 currentUserMarker?.tag = null
                 markers["Me"] = currentUserMarker
+                currentUserMarker?.isVisible=true
 
             } else {
                 Log.d(TAG, "moveCamera: -----------CURRENT USER IS NULL")

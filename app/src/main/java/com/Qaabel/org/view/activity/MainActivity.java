@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
        stopService(serviceIntent);
         super.onDestroy();
-
     }
 
 }

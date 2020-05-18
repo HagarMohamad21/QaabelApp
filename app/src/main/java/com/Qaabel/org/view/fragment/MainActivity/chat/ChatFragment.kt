@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
@@ -17,28 +16,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.Navigation
 import com.Qaabel.org.R
 import com.Qaabel.org.helpers.Common
-import com.Qaabel.org.helpers.toggleVisiblity
+import com.Qaabel.org.helpers.hideKeyboard
 import com.Qaabel.org.model.SharedPref.AppSharedPrefs
 import com.Qaabel.org.model.SharedPref.SharedPref
-import com.Qaabel.org.model.Utilities.Utilities
 import com.Qaabel.org.model.entities.*
 import com.Qaabel.org.view.adapter.Recycler.MessagesAdapter
 import com.Qaabel.org.viewModel.viewModel.friend.FriendProfileViewModel
-import com.google.android.gms.maps.model.Marker
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import io.socket.client.IO
-import io.socket.client.Socket
-import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.dialog_edit.*
 import kotlinx.android.synthetic.main.fragment_chat.*
 import java.lang.NullPointerException
-import java.net.URISyntaxException
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -83,6 +72,8 @@ class ChatFragment : Fragment() {
 
     }
 
+
+
     override fun onResume() {
         visible=true
         super.onResume()
@@ -92,6 +83,7 @@ class ChatFragment : Fragment() {
         visible=false
         super.onPause()
     }
+
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView: -------------------------")
@@ -113,7 +105,9 @@ class ChatFragment : Fragment() {
                 sendMessage(message_et.text.toString())
             }
         }
-        back_img.setOnClickListener { fragmentManager?.popBackStack() }
+        back_img.setOnClickListener {
+            hideKeyboard()
+            fragmentManager?.popBackStack() }
 
         profileImage.setOnClickListener {
             openProfile() }
@@ -245,6 +239,13 @@ class ChatFragment : Fragment() {
         }
     }
 
+//    override fun onShowKeyboard(keyboardHeight: Int) {
+//        Toast.makeText(context,)
+//    }
+//
+//    override fun onHideKeyboard() {
+//
+//    }
 }
 
 

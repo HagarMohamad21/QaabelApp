@@ -12,9 +12,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.Qaabel.org.model.Api.Response.NearPlace
 import com.Qaabel.org.model.Api.Response.UsersInPlaceResponse
+import com.Qaabel.org.view.activity.MainActivity
 import com.Qaabel.org.view.fragment.MainActivity.home.MapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_location.*
 
 public fun View.toggleVisiblity(show: Boolean){
@@ -40,7 +42,9 @@ fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }
 }
 
-
+fun MainActivity.hideBottomNav(){
+    bottom_nav.toggleVisiblity(false)
+}
 
 fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

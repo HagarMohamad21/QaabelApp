@@ -66,7 +66,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
     val DEFAULT_ZOOM = 18f
     var NEAR_USER_AVAILABLE = false
     val HIDING_ZOOM = 15f
-    val SHOWING_ZOOM = 16f
+    var firstTimeMap=true
     val REQUEST_LOCATION = 1001
     var currentUserMarker: Marker? = null
     var lastLocation: Location? = null
@@ -148,10 +148,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
 
 
         checkGps()
-        if (locationGrated && isGpsOn && !NEAR_USER_AVAILABLE) {
+        if (locationGrated && isGpsOn ) {
             getDeviceLocation()
-            getNearUsers()
-            NEAR_USER_AVAILABLE = true
+            if(!NEAR_USER_AVAILABLE){
+                getNearUsers()
+                NEAR_USER_AVAILABLE = true
+            }
+
         }
         initMapAndGpsViews()
         toggleMap()
@@ -230,18 +233,27 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
         mGoogleMap?.setOnMapClickListener(this)
         mGoogleMap?.setOnCameraChangeListener { newPosition ->
 
-            if (newPosition.zoom < HIDING_ZOOM) {
-               currentUserMarker?.isVisible=false
-                placeMarker?.isVisible=false
-                for ( marker in markers.values){
-                    marker?.isVisible=false
-                }
-            }
+           if(firstTimeMap){
+              firstTimeMap=false
+           }
+            else
+           {
+               if (newPosition.zoom < HIDING_ZOOM) {
+                   currentUserMarker?.isVisible=false
+                   placeMarker?.isVisible=false
+                   for ( marker in markers.values){
+                       marker?.isVisible=false
+                   }
+               }
+           }
         }
-        if (locationGrated && isGpsOn && !NEAR_USER_AVAILABLE) {
+        if (locationGrated && isGpsOn) {
             getDeviceLocation()
-            getNearUsers()
-            NEAR_USER_AVAILABLE = true
+            if(!NEAR_USER_AVAILABLE){
+                getNearUsers()
+                NEAR_USER_AVAILABLE = true
+            }
+
         }
         fromSearch = bundle != null
         if (locationGrated && isGpsOn && bundle != null) {
@@ -303,8 +315,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
 
     inner class InfoWindowListener : ViewTreeObserver.OnGlobalLayoutListener {
         override fun onGlobalLayout() {
-            popupXOffset = popupRootView.width / 2
-            popupYOffset = popupRootView.height
+            popupRootView?.apply {
+                popupXOffset = popupRootView.width / 2
+                popupYOffset = popupRootView.height
+            }
+
         }
     }
 

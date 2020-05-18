@@ -21,8 +21,12 @@ class DownloadMarkerImage(var mapFragment: MapFragment) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ bitmap ->
-                 mapFragment.markers[userName]?.setIcon(CustomMarker(mapFragment).createCustomMarker(bitmap,resourse,false))
-              mapFragment.nearUsersProfiles[userName] = bitmap
+                try {
+                    var scaledImage= bitmap.copy(Bitmap.Config.ARGB_8888,true)
+                    mapFragment.markers[userName]?.setIcon(CustomMarker(mapFragment).createCustomMarker(scaledImage,resourse,false))
+                    mapFragment.nearUsersProfiles[userName] = scaledImage
+                }
+                catch (e:Exception){}
                 }, Throwable::printStackTrace)
     }
 

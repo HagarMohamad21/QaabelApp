@@ -22,10 +22,13 @@ fun MapFragment.checkGps() {
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == "android.location.PROVIDERS_CHANGED") {
                 toggleMap()
-                if(locationGrated&&isGpsOn&&!NEAR_USER_AVAILABLE){
+                if(locationGrated&&isGpsOn){
                     getDeviceLocation()
-                    getNearUsers()
-                    NEAR_USER_AVAILABLE=true
+                    if(!NEAR_USER_AVAILABLE){
+                        getNearUsers()
+                        NEAR_USER_AVAILABLE=true
+                    }
+
                 }
                 initMapAndGpsViews()
             }
