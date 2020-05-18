@@ -82,14 +82,8 @@ dependencies {
 
 
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-leanback-v17:2.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.gms:play-services-auth:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.libraries.places:places:1.1.0'
 
@@ -99,12 +93,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 // for swiping messages recyclerview right and left
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.2'
-//for custom info window
-    implementation 'com.appolica:interactive-info-window:v1.0.6'
+
     //SOCKET IO LIBRARY FOR RUN TIME CHATTING AND RUNTIME FLASHING
-    compile('io.socket:socket.io-client:0.8.3') {
-        exclude group: 'org.json', module: 'json'
-    }
+    compile('io.socket:socket.io-client:1.0.0')
 
 
 }
