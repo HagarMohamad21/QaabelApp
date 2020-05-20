@@ -82,23 +82,21 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
 
     Uri picUri;
     String filePath,imageUrl="";
-    MainActivity activity;
-    Bitmap myBitmap;
+
+
     static final int REQUEST_IMAGE_CAPTURE = 222;
     static final int REQUEST_IMAGE_GALLERY = 224;
     ImageDialog imageDialog;
-    TextView logOutEditText, etCountryCode, resetPassTextView;
+    TextView  etCountryCode, resetPassTextView;
     LinearLayout countryCodeLayout;
     private static final int STORAGE_PERMISSION = 2003;
     View view;
     TextView passwordEditText;
     private CompleteDataViewModel completeDataViewModel;
     EditText nameEditText,userNameEditText, descriptionEditText;
-    ImageView email_done_img, wrong_user_img, imgFlag, backImage, profileImageView, updateProfileImageView, lockAgeProfileImg;
-    private OnFragmentInteractionListener mListener;
+    ImageView wrong_user_img, imgFlag, backImage, profileImageView, updateProfileImageView, lockAgeProfileImg;
     TextView uploadLinearLayout, birthdateEditText, jobEditText;
     FriendProfileViewModel friendProfileViewModel;
-    static final int Pick_My_Imag = 222;  // The request code
     UserModel USER;
     boolean isAgePrivate=false;
     File logoFile;
@@ -138,13 +136,9 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
         // Inflate the layout for this fragment
        if(view==null){
            view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
-
            friendProfileViewModel = ViewModelProviders.of(this.getActivity()).get(FriendProfileViewModel.class);
-
            init(view);
-           (activity) = (MainActivity) getActivity();
            actions();
-
            editTextActions();
            completeDataViewModel = ViewModelProviders.of(this.getActivity()).get(CompleteDataViewModel.class);
        }
@@ -298,7 +292,7 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
             checkMissedElement();
         } else
         {
-            update();
+            updateDate(token,getEditUser());
         }
     }
 
@@ -371,20 +365,6 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
     }
 
 
-
-    @Override
-    public void onAttach(Context context)
-    {
-        super.onAttach(context);
-
-    }
-
-    @Override
-    public void onDetach()
-    {
-        super.onDetach();
-    }
-
     @Override
     public void onDismiss(boolean isAgePrivate, @NotNull int[] DateArray) {
         Log.d(TAG, "onDismiss: ----------------"+isAgePrivate);
@@ -399,46 +379,6 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
         birthdateEditText.setText(DateArray[2]+"-"+DateArray[1]+"-"+DateArray[0]);
 
     }
-
-
-    public interface OnFragmentInteractionListener
-    {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-
-    private void update()
-    {
-        {
-            final Dialog delete;
-            delete = new Dialog(getActivity(), android.R.style.Theme_Dialog);
-            delete.setContentView(R.layout.dialog_edit);
-            delete.setCancelable(false);
-            delete.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-            TextView yes = delete.findViewById(R.id.yes_btn);
-            TextView no = delete.findViewById(R.id.no_btn);
-            TextView msg = delete.findViewById(R.id.msg);
-            TextView yesB = delete.findViewById(R.id.yes_btn);
-            yesB.setText("Yes");
-            msg.setText("Are You sure you want to update your profile");
-            yes.setOnClickListener(v -> {
-                String token = mSharedPref.getStrin(AppSharedPrefs.SHARED_PREF_TOKRN);
-                Log.d(TAG, "update: --------------------------"+token);
-                updateDate(token, getEditUser());
-                delete.dismiss();
-
-
-            });
-            no.setOnClickListener(view -> delete.dismiss());
-            delete.show();
-        }
-    }
-
-
-
-
-
 
 
     private void pickImage(){
@@ -538,7 +478,6 @@ public class ProfileEditFragment extends Fragment implements ImageDialog.ImageDi
 
     @Override
     public void onDismiss(String Action) {
-        Log.d(TAG, "onDismiss: +++++++++++++++++++++++++"+Action);
         openIntent(Action);
     }
 

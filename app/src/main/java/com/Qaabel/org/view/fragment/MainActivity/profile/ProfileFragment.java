@@ -156,8 +156,8 @@ public class ProfileFragment extends Fragment
                 jobTextView.setText(USER.getJob());
             if(USER.getImage()!=null&&!USER.getImage().equals(""))
             {
-                Log.d(TAG, "fillData: ------"+USER.getImage());
-                Picasso.get().load(USER.getImage()).into(profileImageView);
+
+                Picasso.get().load(USER.getImage()).placeholder(R.drawable.ic_default_img).into(profileImageView);
             }
         }
 

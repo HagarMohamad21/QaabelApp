@@ -80,7 +80,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     {
 
         holder.name_et.setText(users.get(position).getName());
-        Picasso.get().load(Uri.parse(users.get(position).getImage())).into(holder.profileImg);
+        Picasso.get().load(Uri.parse(users.get(position).getImage())).placeholder(R.drawable.ic_default_img).into(holder.profileImg);
         RxView.clicks(holder.layout).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(o -> {
                     Bundle bundle = new Bundle();

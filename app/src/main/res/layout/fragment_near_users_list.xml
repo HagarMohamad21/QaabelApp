@@ -39,6 +39,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="60dp"
         android:layout_marginEnd="5dp"
+        tools:listitem="@layout/card_friend_flash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

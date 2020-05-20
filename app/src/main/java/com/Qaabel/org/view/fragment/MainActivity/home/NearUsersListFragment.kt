@@ -79,7 +79,8 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
         flashUserViewModel=ViewModelProviders.of(this).get(FlashUserViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? { // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
         if(vw==null){
             vw=  inflater.inflate(R.layout.fragment_near_users_list, container, false)
             getNearUsers()

@@ -132,7 +132,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
            }
 
         }
-        Picasso.get().load(Uri.parse(chats.get(position).getUser().getImage())).into(holder.profileImg);
+        Picasso.get().load(Uri.parse(chats.get(position).getUser().getImage())).placeholder(R.drawable.ic_default_img).into(holder.profileImg);
         RxView.clicks(holder.chatLayout).throttleFirst(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(o -> {
                      if(mView.isInActionMode){

@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.Qaabel.org.R
 import com.Qaabel.org.helpers.Common
+import com.Qaabel.org.helpers.toggleVisiblity
 import com.Qaabel.org.interfaces.OnFlashBack
 import com.Qaabel.org.interfaces.OnFlashedSent
 import com.Qaabel.org.interfaces.RequestNavigation
@@ -21,7 +19,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.card_friend_flash.view.*
 import kotlinx.android.synthetic.main.card_friend_flash.view.flashBackBtn
 import kotlinx.android.synthetic.main.card_friend_flash.view.flashBtn
-import kotlinx.android.synthetic.main.fragment_friend_profile.view.*
+
 
 
 class NearUsersAdapter(var context: Context,var nearUsers:List<FriendModel> ,var fragment:NearUsersListFragment) : RecyclerView.Adapter<NearUsersAdapter.NearUserHolder>() {
@@ -42,7 +40,6 @@ class NearUsersAdapter(var context: Context,var nearUsers:List<FriendModel> ,var
        p0.bind(nearUsers[p1],p1)
     }
 
-    private val TAG = "NearUsersAdapter"
     inner class NearUserHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
         fun bind(pos: FriendModel, index: Int) {
 
@@ -91,11 +88,11 @@ class NearUsersAdapter(var context: Context,var nearUsers:List<FriendModel> ,var
                         }
                     }
                 }
-                else if(pos.isfriend){
-                    // send message
-                    if(requestNavigation!=null)
-                        requestNavigation!!.onNavigationRequested("CHAT",pos)
-                }
+            }
+            itemView.messageBtn.setOnClickListener {
+                // send message
+                if(requestNavigation!=null)
+                    requestNavigation!!.onNavigationRequested("CHAT",pos)
             }
             itemView.flashBtn.setOnClickListener { if(onFlashedSent!=null) onFlashedSent!!.sendFlash(pos.id,index)
                 fragment.onFlashedSent=object :OnFlashedSent{
@@ -112,11 +109,12 @@ class NearUsersAdapter(var context: Context,var nearUsers:List<FriendModel> ,var
 
         private fun friendView() {
             itemView.flashBtn.visibility=View.GONE
-            itemView.flashBackBtn.visibility=View.VISIBLE
+            itemView.flashBackBtn.visibility=View.GONE
             itemView.friendIcon.visibility=View.GONE
-            itemView.friendIcon2.visibility=View.VISIBLE
-            itemView.friendIcon2.setImageResource(R.drawable.ic_chatbubble)
-            itemView.flashBackBtn.text="Message"
+            itemView.friendIcon2.visibility=View.GONE
+            itemView.messageBtn.toggleVisiblity(true)
+            itemView.messageBubble.toggleVisiblity(true)
+
         }
 
         private fun flashBackViews() {
@@ -126,6 +124,8 @@ class NearUsersAdapter(var context: Context,var nearUsers:List<FriendModel> ,var
             itemView.friendIcon2.visibility=View.VISIBLE
             itemView.friendIcon2.setImageResource(R.drawable.ic_blackflash)
             itemView.flashBackBtn.text="Flash Back"
+            itemView.messageBtn.toggleVisiblity(false)
+            itemView.messageBubble.toggleVisiblity(false)
 
         }
 
@@ -134,6 +134,8 @@ class NearUsersAdapter(var context: Context,var nearUsers:List<FriendModel> ,var
             itemView.flashBackBtn.visibility=View.VISIBLE
             itemView.friendIcon.visibility=View.GONE
             itemView.friendIcon2.visibility=View.VISIBLE
+            itemView.messageBtn.toggleVisiblity(false)
+            itemView.messageBubble.toggleVisiblity(false)
         }
 
 
