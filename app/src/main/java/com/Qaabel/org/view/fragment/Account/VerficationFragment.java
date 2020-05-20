@@ -96,7 +96,6 @@ public class VerficationFragment extends Fragment
     { backButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "onClick: BACK BUTTON CLICKED)))))))))))))))))))");
             getFragmentManager().popBackStack();
         }
     });
@@ -149,6 +148,7 @@ public class VerficationFragment extends Fragment
 
                         }
                         else{
+                            wrongCode.setVisibility(View.GONE);
                             new SharedPref(getContext()).saveString(AppSharedPrefs.PHONE_VERIFIED, "TRUE");
                             startActivity(new Intent(getActivity(), MainActivity.class));
                             getActivity().finish();

@@ -106,9 +106,7 @@ public class SignUpFragment extends Fragment implements CountryCodePicker.OnCoun
          code=codePicker.getSelectedCountryCode();
          if(!codeSelectedByUser.equals("")){
              codePicker.setCountryForPhoneCode(Integer.parseInt(codeSelectedByUser));
-         }
-        Log.d(TAG, "init: _______________________________"+code);
-    }
+         } }
 
 
 
@@ -202,7 +200,6 @@ public class SignUpFragment extends Fragment implements CountryCodePicker.OnCoun
         RxView.clicks(terms_of_use).throttleFirst(500, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(o -> {
                     termsLayout.setVisibility(View.VISIBLE);
-
                     terms_tx.setVisibility(View.VISIBLE);
 
                 });
@@ -412,8 +409,8 @@ public class SignUpFragment extends Fragment implements CountryCodePicker.OnCoun
             passwordET.requestFocus();
         }
         else if(passwordET.getText().length()<8){
-            passwordET.setError("Password length should be more than 8 chars");
-            passwordET.requestFocus();
+            passwordsDoesntMatch.setText("Password length should be more than 8 chars");
+            passwordsDoesntMatch.setVisibility(View.VISIBLE);
         }
         else if (!termsCheckBox.isChecked())
 
@@ -423,6 +420,7 @@ public class SignUpFragment extends Fragment implements CountryCodePicker.OnCoun
         }
         else if (!(passwordET.getText().toString()).equals(confirmPasswordET.getText().toString()))
         {
+            passwordsDoesntMatch.setText(getString(R.string.passwordsMatch));
             passwordsDoesntMatch.setVisibility(View.VISIBLE);
 
         }
