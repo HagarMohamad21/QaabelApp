@@ -20,6 +20,8 @@ import com.Qaabel.org.model.entities.MessageModel;
 import com.Qaabel.org.model.entities.SentMessageModel;
 import com.Qaabel.org.model.entities.UserModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -420,7 +422,7 @@ public class FriendProfileRepository
             }
 
             @Override
-            public void onFailure(Call<ApiChatResponse> call, Throwable t)
+            public void onFailure(@NotNull Call<ApiChatResponse> call, @NotNull Throwable t)
             {
                 data.setValue(null);
             }

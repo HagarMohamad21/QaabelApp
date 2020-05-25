@@ -1,6 +1,7 @@
 package com.Qaabel.org.helpers.mapHelper
 
 import android.content.Intent
+import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import androidx.navigation.Navigation
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_location.*
         currentLocationBtnClicked = true
         warningImg.visibility = View.GONE
         warningTxt.visibility = View.GONE
+        clearSearch=true
         city_name.text=userCity
         if(nearUsersNum!=-1)
         available_num.text = "${nearUsersNum} available"
@@ -29,5 +31,17 @@ import kotlinx.android.synthetic.main.fragment_location.*
         searchedText=""
         moveCamera(null)
     }
-   go_map.setOnClickListener {  Navigation.findNavController(this.activity!!, R.id.map).navigate(R.id.action_navigation_Friend_to_navigation_home) }
+   go_map.setOnClickListener {
+       var bundle:Bundle?
+       if (fromSearch&&!clearSearch)
+       {   bundle=Bundle()
+           bundle.putBoolean("FROM SEARCH",fromSearch)
+           bundle.putInt("Number Of Users",numberOfSearchedUsers)
+           Navigation.findNavController(this.activity!!, R.id.map).navigate(R.id.action_navigation_Friend_to_navigation_home,bundle)
+       }
+       else
+           Navigation.findNavController(this.activity!!, R.id.map).navigate(R.id.action_navigation_Friend_to_navigation_home,null)
+
+
+   }
 }

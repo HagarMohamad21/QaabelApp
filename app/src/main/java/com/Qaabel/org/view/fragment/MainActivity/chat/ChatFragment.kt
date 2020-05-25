@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.Qaabel.org.R
 import com.Qaabel.org.helpers.Common
@@ -167,19 +168,18 @@ class ChatFragment : Fragment() {
        var messageModel=MessageModel()
         messageModel.sender=currentUser?._id
         messageModel.message=message
-       adapter?.addNewMessage(messageModel)
-        try {
-            chatlist?.scrollToPosition(adapter?.itemCount!!-1)
-        }
+        addNewMessage(messageModel)
 
-        catch (e:NullPointerException){
-            Log.d(TAG, "buildMessage: --------------------CHAT LIST RECYCLERVIEW---------------------"+chatlist)
-            Log.d(TAG, "buildMessage: -----------------------ADAPTER------------------"+adapter)
-            Log.d(TAG, "buildMessage: ---------------------------ITEM COUNT-------------------"+adapter?.itemCount)
-        }
+    }
+
+    fun addNewMessage(message:MessageModel?){
+
+        var add= adapter?.messages?.add(message!!)
+        adapter?.notifyDataSetChanged()
     }
 
     private fun init(){
+  adapter=MessagesAdapter(context!!,currentUser!!)
    user=arguments?.getParcelable("FRIEND_USER")
    chatId=arguments?.getString("CHAT_ID")
    Picasso.get().load(user?.image).into(profileImage)
@@ -213,11 +213,12 @@ class ChatFragment : Fragment() {
 
     private fun populateList(messages: ArrayList<MessageModel>) {
         messages.reverse()
-         adapter=MessagesAdapter(context!!,messages,currentUser!!)
+        adapter?.messages=messages
          var linearLayoutManager=LinearLayoutManager(context)
          linearLayoutManager.stackFromEnd = true
         chatlist.layoutManager=linearLayoutManager
          chatlist.adapter=adapter
+        adapter?.notifyDataSetChanged()
 
     }
 
@@ -228,7 +229,7 @@ class ChatFragment : Fragment() {
             override fun onReceive(context: Context?, intent: Intent?) {
                     val message:SocketModel= intent?.getParcelableExtra(Common.SERVICE_CHAT_MESSAGE) as SocketModel
                     try{
-                        adapter?.addNewMessage(message.getMessage())
+                        addNewMessage(message.getMessage())
                         chatlist?.scrollToPosition(adapter?.itemCount!!-1)
                     }
                     catch(e:Exception){

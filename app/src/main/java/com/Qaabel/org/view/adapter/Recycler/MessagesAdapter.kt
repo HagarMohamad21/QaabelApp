@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.Qaabel.org.R
 import com.Qaabel.org.model.entities.MessageModel
 import com.Qaabel.org.model.entities.UserModel
@@ -13,12 +14,12 @@ import kotlinx.android.synthetic.main.recieved_message_list_item.view.*
 import kotlinx.android.synthetic.main.sent_message_list_item.view.*
 
 
-class MessagesAdapter(var context:Context,var messages :ArrayList<MessageModel>,var currentUser:UserModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessagesAdapter(var context:Context,var currentUser:UserModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     private val VIEW_TYPE_SENDER = 1
     private val VIEW_TYPE_RECEIVER = 2
-
+    var messages :ArrayList<MessageModel> = ArrayList()
 
 
 
@@ -66,8 +67,5 @@ class MessagesAdapter(var context:Context,var messages :ArrayList<MessageModel>,
         }
     }
 
-    fun addNewMessage(message:MessageModel?){
-        messages.add(message!!)
-        notifyDataSetChanged()
-    }
+
 }

@@ -65,6 +65,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
     var locationGrated = false
     val DEFAULT_ZOOM = 18f
     var NEAR_USER_AVAILABLE = false
+    var clearSearch=false
     val HIDING_ZOOM = 15f
     var firstTimeMap=true
     val REQUEST_LOCATION = 1001
@@ -105,6 +106,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
     companion object {
         var visible = false
     }
+    var numberOfSearchedUsers=-100
 
     lateinit var mMessageReceiver: BroadcastReceiver
 

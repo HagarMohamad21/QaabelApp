@@ -2,7 +2,6 @@ package com.Qaabel.org.view.fragment.MainActivity.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.graphics.Canvas
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -19,6 +18,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import com.Qaabel.org.R
 import com.Qaabel.org.helpers.Common
+import com.Qaabel.org.helpers.toggleVisiblity
 import com.Qaabel.org.interfaces.OnFlashBack
 import com.Qaabel.org.interfaces.OnFlashedSent
 import com.Qaabel.org.interfaces.OnLocationSent
@@ -33,9 +33,8 @@ import com.Qaabel.org.model.entities.FriendModel
 import com.Qaabel.org.view.adapter.Recycler.NearUsersAdapter
 import com.Qaabel.org.viewModel.viewModel.friend.FlashUserViewModel
 import com.Qaabel.org.viewModel.viewModel.friend.NearUsersViewModel
-import kotlinx.android.synthetic.main.fragment_location.*
 import kotlinx.android.synthetic.main.fragment_near_users_list.*
-import kotlinx.android.synthetic.main.fragment_near_users_list.go_map
+
 
 
 class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, OnLocationSent, OnFlashedSent,OnFlashBack,RequestNavigation {
@@ -48,6 +47,8 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
     private var flashUserViewModel:FlashUserViewModel?=null
     var onFlashBack:OnFlashBack?=null
     var onFlashedSent:OnFlashedSent?=null
+    var fromSearch=false
+    var numSearchedUsers=-100
 
 
     private fun getNearUsers() {
@@ -77,13 +78,24 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
         mtoken = SharedPref(context).getStrin(AppSharedPrefs.SHARED_PREF_TOKRN)
         nearUsersViewModel = ViewModelProviders.of(activity!!).get(NearUsersViewModel::class.java)
         flashUserViewModel=ViewModelProviders.of(this).get(FlashUserViewModel::class.java)
+        var bundle=arguments
+        bundle?.apply {
+            fromSearch=bundle.getBoolean("FROM SEARCH")
+            numSearchedUsers=bundle.getInt("Number Of Users")
+        }
+
+
     }
+
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         if(vw==null){
             vw=  inflater.inflate(R.layout.fragment_near_users_list, container, false)
-            getNearUsers()
+           if(!fromSearch){
+               getNearUsers()
+           }
         }
 
         return vw
@@ -92,6 +104,13 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         actions()
+        if(fromSearch){
+            available_num.toggleVisiblity(true)
+            available_num.text="$numSearchedUsers available"
+               warningImg.visibility = View.VISIBLE
+               warningTxt.visibility = View.VISIBLE
+            onlineView.toggleVisiblity(true)
+          }
     }
 
 
@@ -100,6 +119,7 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
     private fun actions() {
         go_map.setOnClickListener { Navigation.findNavController(this.activity!!, R.id.shopping_nav_host_fragment).navigate(R.id.action_navigation_Friend_to_navigation_home) }
         back_img.setOnClickListener { fragmentManager?.popBackStack() }
+
     }
 
 

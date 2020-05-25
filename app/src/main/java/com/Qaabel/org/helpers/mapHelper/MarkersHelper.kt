@@ -71,7 +71,7 @@ fun MapFragment.addUsersInThatPlaceToMap(it: UsersInPlaceResponse?, pos: LatLng,
         placeMarker= mGoogleMap?.addMarker(MarkerOptions().position(pos)
                     .title(searchedText)
                     .icon(customMarker?.createPlaceMarker("", it.numbers)))
-
+           numberOfSearchedUsers=it.numbers
         }
     }
     else{
@@ -84,6 +84,7 @@ fun MapFragment.addUsersInThatPlaceToMap(it: UsersInPlaceResponse?, pos: LatLng,
 }
 
 fun MapFragment.addPlacesToMap(places: List<NearPlace?>?) {
+    var usersSum=0
     Log.d(TAG, "addPlacesToMap: --------------------------------------------"+places?.size)
     for(Place in places!!){
         var numberOfUsers=Place?.getNumberOfUsers()
@@ -91,11 +92,10 @@ fun MapFragment.addPlacesToMap(places: List<NearPlace?>?) {
         placeMarker= mGoogleMap?.addMarker(MarkerOptions().position(latLng)
                 .title(Place?.getName())
                 .icon(customMarker?.createPlaceMarker("",numberOfUsers!!)))
-
-        available_num.text="$numberOfUsers available"
-
-
+        usersSum = numberOfUsers?.let { usersSum?.plus(it) }!!
     }
+    available_num.text="$usersSum available"
+    numberOfSearchedUsers=usersSum!!
 }
 
 fun MapFragment.getNearUsers() {
