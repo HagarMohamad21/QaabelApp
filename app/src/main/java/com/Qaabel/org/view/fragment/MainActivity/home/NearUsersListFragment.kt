@@ -62,17 +62,9 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
                     if(Common.USER_LOCATION!=null){
                         var utilities= Utilities()
                         utilities.setOnLocationSent(this)
-                        utilities.SendMyLocation(Common.USER_LOCATION,context!!)
-                    }
-
-
-
-                }
-
+                        utilities.SendMyLocation(Common.USER_LOCATION,context!!) }}
             }})
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mtoken = SharedPref(context).getStrin(AppSharedPrefs.SHARED_PREF_TOKRN)
@@ -86,9 +78,6 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
 
 
     }
-
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         if(vw==null){
@@ -100,7 +89,6 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
 
         return vw
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         actions()
@@ -116,11 +104,10 @@ class NearUsersListFragment : Fragment(), RecyclerItemTouchHelper.RecyclerItemTo
 
 
 
-    private fun actions() {
-        go_map.setOnClickListener { Navigation.findNavController(this.activity!!, R.id.shopping_nav_host_fragment).navigate(R.id.action_navigation_Friend_to_navigation_home) }
-        back_img.setOnClickListener { fragmentManager?.popBackStack() }
+    private fun actions()
 
-    }
+    {   go_map.setOnClickListener { Navigation.findNavController(this.activity!!, R.id.shopping_nav_host_fragment).navigate(R.id.action_navigation_Friend_to_navigation_home) }
+        back_img.setOnClickListener { fragmentManager?.popBackStack() }}
 
 
 

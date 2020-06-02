@@ -37,6 +37,7 @@ import com.Qaabel.org.model.Utilities.Utilities
 import com.Qaabel.org.model.entities.Active
 import com.Qaabel.org.model.entities.FriendModel
 import com.Qaabel.org.model.entities.UserModel
+import com.Qaabel.org.view.activity.MainActivity
 import com.Qaabel.org.view.fragment.Account.CompeleteFragment
 import com.Qaabel.org.view.fragment.Account.ConfimEmailFragment
 import com.Qaabel.org.viewModel.viewModel.account.LoginViewModel
@@ -258,6 +259,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, OnLocationSent, GoogleMap.On
 
         }
         fromSearch = bundle != null
+
         if (locationGrated && isGpsOn && bundle != null) {
             bundleLocation = bundle?.getParcelable("SEARCH LOCATION")
             searchedText = bundle?.getString("SELECTED LOCATION NAME")
