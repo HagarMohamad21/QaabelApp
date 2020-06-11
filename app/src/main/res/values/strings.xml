@@ -4,7 +4,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="placesApiKey">AIzaSyDM5aWecMttLAe9OaRlkGo1fHrRYLaufj4</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
     <string name="sign_up">Sign Up</string>
